@@ -33,13 +33,7 @@ WORKDIR /app
 COPY --chown=www-data --from=js /app/ /app
 
 ENV NODE_ENV=production
-ENV OCTANE_SERVER=frankenphp
-ENV BUN_RSC_ENABLED=true
-ENV BUN_BRIDGE_SOCKET=/tmp/larabun-docs-bridge.sock
 
-RUN APP_KEY=base64:dGhpcy1pcy1hLWR1bW15LWtleS1mb3ItYnVpbGQtb25seQ== php artisan rsc:prerender
-
-RUN rm -f /tmp/larabun-docs-bridge.sock
 
 RUN mkdir -p /data/caddy /config/caddy \
     && chown -R www-data:www-data /data /config /app/storage /app/bootstrap/cache

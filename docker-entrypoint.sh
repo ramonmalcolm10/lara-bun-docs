@@ -8,6 +8,9 @@ rm -f /tmp/larabun-docs-bridge.sock
 php artisan bun:serve &
 BUN_PID=$!
 
+# Wait for Bun worker, then prerender static pages in background
+(sleep 5 && php artisan rsc:prerender --clean) &
+
 php artisan octane:frankenphp --host=0.0.0.0 --port=8000 &
 OCTANE_PID=$!
 
