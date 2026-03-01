@@ -330,13 +330,13 @@ export default function LandingPage() {
             }}>
               <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>RUNTIME</div>
               <div style={{ color: '#a78bfa', fontWeight: 600, fontSize: 16 }}>PHP</div>
-              <div style={{ color: '#85858d', fontSize: 11, marginTop: 4 }}>Laravel · Eloquent</div>
+              <div style={{ color: '#a1a1aa', fontSize: 11, marginTop: 4 }}>Laravel · Eloquent</div>
             </div>
 
             {/* Arrow */}
             <div style={{
               padding: '0 12px',
-              color: '#85858d',
+              color: '#a1a1aa',
               fontSize: 20,
               display: 'flex',
               flexDirection: 'column',
@@ -358,13 +358,13 @@ export default function LandingPage() {
             }}>
               <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>BRIDGE</div>
               <div style={{ color: '#f59e0b', fontWeight: 600, fontSize: 16 }}>Unix Socket</div>
-              <div style={{ color: '#85858d', fontSize: 11, marginTop: 4 }}>4-byte len + JSON</div>
+              <div style={{ color: '#a1a1aa', fontSize: 11, marginTop: 4 }}>4-byte len + JSON</div>
             </div>
 
             {/* Arrow */}
             <div style={{
               padding: '0 12px',
-              color: '#85858d',
+              color: '#a1a1aa',
               fontSize: 20,
               display: 'flex',
               flexDirection: 'column',
@@ -386,7 +386,7 @@ export default function LandingPage() {
             }}>
               <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>RUNTIME</div>
               <div style={{ color: '#22d3ee', fontWeight: 600, fontSize: 16 }}>Bun</div>
-              <div style={{ color: '#85858d', fontSize: 11, marginTop: 4 }}>React · RSC · SSR</div>
+              <div style={{ color: '#a1a1aa', fontSize: 11, marginTop: 4 }}>React · RSC · SSR</div>
             </div>
           </div>
         </div>

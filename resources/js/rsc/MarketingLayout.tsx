@@ -29,10 +29,10 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               fontSize: '16px',
               color: '#fafafa',
             }}>LaraBun</span>
-            <span style={{ color: '#85858d' }}>·</span>
+            <span style={{ color: '#a1a1aa' }}>·</span>
             <span>Laravel + Bun, unified</span>
           </div>
-          <p style={{ color: '#85858d', fontSize: '13px' }}>
+          <p style={{ color: '#a1a1aa', fontSize: '13px' }}>
             Built with LaraBun RSC
           </p>
         </div>
