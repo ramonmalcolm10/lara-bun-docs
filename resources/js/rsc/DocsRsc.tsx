@@ -134,10 +134,10 @@ prefetch('/settings', 5000); // cache for 5s`}
           color: '#a1a1aa',
           lineHeight: 2,
         }}>
-          <div><span style={{ color: '#71717a' }}>resources/js/rsc/</span></div>
+          <div><span style={{ color: '#9a9aa2' }}>resources/js/rsc/</span></div>
           <div style={{ paddingLeft: 16 }}>Dashboard.tsx → <span style={{ color: '#f59e0b' }}>rsc('Dashboard')</span></div>
           <div style={{ paddingLeft: 16 }}>UserProfile.tsx → <span style={{ color: '#f59e0b' }}>rsc('UserProfile')</span></div>
-          <div style={{ paddingLeft: 16 }}>Counter.tsx <span style={{ color: '#71717a' }}>("use client")</span> → hydrated in browser</div>
+          <div style={{ paddingLeft: 16 }}>Counter.tsx <span style={{ color: '#9a9aa2' }}>("use client")</span> → hydrated in browser</div>
           <div style={{ paddingLeft: 16 }}>AppLayout.tsx → <span style={{ color: '#f59e0b' }}>{`->layout('AppLayout')`}</span></div>
         </div>
       </div>

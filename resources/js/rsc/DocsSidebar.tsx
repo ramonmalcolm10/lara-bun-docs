@@ -55,7 +55,7 @@ export default function DocsSidebar() {
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
-            color: '#71717a',
+            color: '#9a9aa2',
             marginBottom: 8,
             padding: '0 12px',
           }}>

@@ -38,7 +38,7 @@ export default function CodeBlock({ children, language, title }: CodeBlockProps)
           <span style={{
             fontSize: 12,
             fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
-            color: '#71717a',
+            color: '#9a9aa2',
           }}>
             {title || language}
           </span>
@@ -47,7 +47,7 @@ export default function CodeBlock({ children, language, title }: CodeBlockProps)
             style={{
               background: 'none',
               border: 'none',
-              color: copied ? '#4ade80' : '#71717a',
+              color: copied ? '#4ade80' : '#9a9aa2',
               cursor: 'pointer',
               fontSize: 12,
               fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",

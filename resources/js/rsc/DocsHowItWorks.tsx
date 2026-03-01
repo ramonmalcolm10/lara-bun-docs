@@ -28,9 +28,9 @@ export default function DocsHowItWorks() {
           lineHeight: 2,
         }}>
           <div>Browser request → <span style={{ color: '#a78bfa' }}>Laravel</span> (PHP-FPM / Octane)</div>
-          <div style={{ paddingLeft: 24 }}>↓ <span style={{ color: '#71717a', fontSize: 11 }}>rsc('Component', $props)</span></div>
+          <div style={{ paddingLeft: 24 }}>↓ <span style={{ color: '#9a9aa2', fontSize: 12 }}>rsc('Component', $props)</span></div>
           <div style={{ paddingLeft: 24 }}><span style={{ color: '#a78bfa' }}>BunBridge</span> → Unix Socket → <span style={{ color: '#22d3ee' }}>Bun Worker</span></div>
-          <div style={{ paddingLeft: 48 }}>↓ <span style={{ color: '#71717a', fontSize: 11 }}>renderToReadableStream()</span></div>
+          <div style={{ paddingLeft: 48 }}>↓ <span style={{ color: '#9a9aa2', fontSize: 12 }}>renderToReadableStream()</span></div>
           <div style={{ paddingLeft: 48 }}><span style={{ color: '#22d3ee' }}>React RSC</span> → Flight payload + HTML</div>
           <div style={{ paddingLeft: 24 }}>← streamed back over socket</div>
           <div>← <span style={{ color: '#a78bfa' }}>Laravel</span> streams to browser</div>
@@ -47,7 +47,7 @@ export default function DocsHowItWorks() {
           fontSize: 13,
           color: '#e4e4e7',
         }}>
-          <div><span style={{ color: '#f59e0b' }}>[ 4 bytes: BE uint32 length ]</span><span style={{ color: '#71717a' }}> + </span><span style={{ color: '#22d3ee' }}>[ N bytes: UTF-8 JSON payload ]</span></div>
+          <div><span style={{ color: '#f59e0b' }}>[ 4 bytes: BE uint32 length ]</span><span style={{ color: '#9a9aa2' }}> + </span><span style={{ color: '#22d3ee' }}>[ N bytes: UTF-8 JSON payload ]</span></div>
         </div>
       </div>
       <p style={s.p}>

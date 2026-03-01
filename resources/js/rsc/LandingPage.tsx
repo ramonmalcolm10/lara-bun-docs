@@ -164,7 +164,7 @@ export default function LandingPage() {
             color: '#e4e4e7',
             marginBottom: 32,
           }}>
-            <span style={{ color: '#71717a' }}>$</span>
+            <span style={{ color: '#9a9aa2' }}>$</span>
             composer require ramonmalcolm10/lara-bun
           </div>
 
@@ -328,15 +328,15 @@ export default function LandingPage() {
               textAlign: 'center',
               minWidth: 140,
             }}>
-              <div style={{ fontSize: 11, color: '#71717a', marginBottom: 6 }}>RUNTIME</div>
+              <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>RUNTIME</div>
               <div style={{ color: '#a78bfa', fontWeight: 600, fontSize: 16 }}>PHP</div>
-              <div style={{ color: '#52525b', fontSize: 11, marginTop: 4 }}>Laravel · Eloquent</div>
+              <div style={{ color: '#85858d', fontSize: 11, marginTop: 4 }}>Laravel · Eloquent</div>
             </div>
 
             {/* Arrow */}
             <div style={{
               padding: '0 12px',
-              color: '#52525b',
+              color: '#85858d',
               fontSize: 20,
               display: 'flex',
               flexDirection: 'column',
@@ -344,7 +344,7 @@ export default function LandingPage() {
               gap: 4,
             }}>
               <span>⟷</span>
-              <span style={{ fontSize: 9, color: '#71717a' }}>frames</span>
+              <span style={{ fontSize: 11, color: '#9a9aa2' }}>frames</span>
             </div>
 
             {/* Socket */}
@@ -356,15 +356,15 @@ export default function LandingPage() {
               textAlign: 'center',
               minWidth: 140,
             }}>
-              <div style={{ fontSize: 11, color: '#71717a', marginBottom: 6 }}>BRIDGE</div>
+              <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>BRIDGE</div>
               <div style={{ color: '#f59e0b', fontWeight: 600, fontSize: 16 }}>Unix Socket</div>
-              <div style={{ color: '#52525b', fontSize: 11, marginTop: 4 }}>4-byte len + JSON</div>
+              <div style={{ color: '#85858d', fontSize: 11, marginTop: 4 }}>4-byte len + JSON</div>
             </div>
 
             {/* Arrow */}
             <div style={{
               padding: '0 12px',
-              color: '#52525b',
+              color: '#85858d',
               fontSize: 20,
               display: 'flex',
               flexDirection: 'column',
@@ -372,7 +372,7 @@ export default function LandingPage() {
               gap: 4,
             }}>
               <span>⟷</span>
-              <span style={{ fontSize: 9, color: '#71717a' }}>frames</span>
+              <span style={{ fontSize: 11, color: '#9a9aa2' }}>frames</span>
             </div>
 
             {/* Bun */}
@@ -384,9 +384,9 @@ export default function LandingPage() {
               textAlign: 'center',
               minWidth: 140,
             }}>
-              <div style={{ fontSize: 11, color: '#71717a', marginBottom: 6 }}>RUNTIME</div>
+              <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>RUNTIME</div>
               <div style={{ color: '#22d3ee', fontWeight: 600, fontSize: 16 }}>Bun</div>
-              <div style={{ color: '#52525b', fontSize: 11, marginTop: 4 }}>React · RSC · SSR</div>
+              <div style={{ color: '#85858d', fontSize: 11, marginTop: 4 }}>React · RSC · SSR</div>
             </div>
           </div>
         </div>

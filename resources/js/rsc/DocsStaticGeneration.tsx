@@ -100,11 +100,11 @@ php artisan rsc:prerender --clean`}
           color: '#a1a1aa',
           lineHeight: 2,
         }}>
-          <div><span style={{ color: '#71717a' }}>storage/framework/rsc-static/</span></div>
+          <div><span style={{ color: '#9a9aa2' }}>storage/framework/rsc-static/</span></div>
           <div style={{ paddingLeft: 16 }}>index.html</div>
           <div style={{ paddingLeft: 16 }}>index.flight</div>
           <div style={{ paddingLeft: 16 }}>index.meta.json</div>
-          <div style={{ paddingLeft: 16 }}><span style={{ color: '#71717a' }}>docs/</span></div>
+          <div style={{ paddingLeft: 16 }}><span style={{ color: '#9a9aa2' }}>docs/</span></div>
           <div style={{ paddingLeft: 32 }}>installation.html</div>
           <div style={{ paddingLeft: 32 }}>installation.flight</div>
           <div style={{ paddingLeft: 32 }}>installation.meta.json</div>

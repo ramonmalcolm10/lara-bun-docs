@@ -16,7 +16,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         padding: '0 24px',
       }}>
         {/* Sidebar — hidden on mobile via MobileMenu */}
-        <aside style={{
+        <aside className="docs-sidebar" style={{
           width: 280,
           flexShrink: 0,
           borderRight: '1px solid rgba(255,255,255,0.06)',
@@ -32,7 +32,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         </aside>
 
         {/* Content */}
-        <article style={{
+        <article className="docs-content" style={{
           flex: 1,
           minWidth: 0,
           padding: '32px 0 80px 48px',

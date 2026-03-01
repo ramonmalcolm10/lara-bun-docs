@@ -111,7 +111,7 @@ export default function DocsSuspenseDemo() {
 
       <div style={{ display: 'grid', gap: 16, marginTop: 24 }}>
         <div style={s.box}>
-          <div style={{ padding: '12px 20px 0', fontSize: 12, color: '#71717a', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>
+          <div style={{ padding: '12px 20px 0', fontSize: 12, color: '#9a9aa2', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>
             {'<Suspense fallback={<Skeleton />}>'}
           </div>
           <Suspense fallback={<Skeleton lines={2} />}>
@@ -120,7 +120,7 @@ export default function DocsSuspenseDemo() {
         </div>
 
         <div style={s.box}>
-          <div style={{ padding: '12px 20px 0', fontSize: 12, color: '#71717a', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>
+          <div style={{ padding: '12px 20px 0', fontSize: 12, color: '#9a9aa2', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>
             {'<Suspense fallback={<Skeleton />}>'}
           </div>
           <Suspense fallback={<Skeleton lines={3} />}>
@@ -129,7 +129,7 @@ export default function DocsSuspenseDemo() {
         </div>
 
         <div style={s.box}>
-          <div style={{ padding: '12px 20px 0', fontSize: 12, color: '#71717a', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>
+          <div style={{ padding: '12px 20px 0', fontSize: 12, color: '#9a9aa2', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>
             {'<Suspense fallback={<Skeleton />}>'}
           </div>
           <Suspense fallback={<Skeleton lines={4} />}>
