@@ -10,9 +10,30 @@ const f = {
 export default function LandingPage() {
   return (
     <div>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .lb-hero-codes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .lb-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .lb-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .lb-arch { display: flex; align-items: center; justify-content: center; gap: 0; }
+        .lb-arch-arrow { display: block; }
+        .lb-arch-arrow-v { display: none; }
+        @media (max-width: 768px) {
+          .lb-hero-codes { grid-template-columns: 1fr; }
+          .lb-features { grid-template-columns: 1fr; }
+          .lb-two-col { grid-template-columns: 1fr; }
+          .lb-arch { flex-direction: column; gap: 0; }
+          .lb-arch-arrow { display: none; }
+          .lb-arch-arrow-v { display: block; }
+          .lb-arch-box { min-width: 0 !important; width: 100%; max-width: 280px; }
+        }
+        @media (min-width: 769px) and (max-width: 900px) {
+          .lb-features { grid-template-columns: repeat(2, 1fr); }
+        }
+      `}} />
+
       {/* Hero */}
       <section style={{
-        padding: '100px 24px 0',
+        padding: 'clamp(60px, 10vw, 100px) 24px 0',
         maxWidth: 960,
         margin: '0 auto',
         textAlign: 'center',
@@ -44,11 +65,8 @@ export default function LandingPage() {
           streaming, and server actions in Laravel.
         </p>
 
-        {/* The pitch: two code blocks side by side */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 16,
+        {/* The pitch: two code blocks */}
+        <div className="lb-hero-codes" style={{
           textAlign: 'left',
           marginBottom: 48,
           animation: 'fadeInUp 0.6s ease-out 0.2s both',
@@ -151,11 +169,7 @@ class Posts
         padding: '48px 24px 64px',
         borderTop: '1px solid rgba(255,255,255,0.06)',
       }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 16,
-        }}>
+        <div className="lb-features">
           {([
             ['📁', 'File-based routing', 'page.tsx becomes a route. layout.tsx wraps it. Nested layouts compose automatically. No manual route config needed.'],
             ['🌊', 'Streaming HTML', 'Suspense boundaries stream progressively over the wire. The shell ships instantly, data fills in as it resolves.'],
@@ -215,7 +229,7 @@ class Posts
       }}>
         <h2 style={{
           fontFamily: f.display,
-          fontSize: 28,
+          fontSize: 'clamp(22px, 4vw, 28px)',
           fontWeight: 700,
           letterSpacing: '-0.03em',
           color: '#fafafa',
@@ -235,11 +249,7 @@ class Posts
           Static pages detected automatically.
         </p>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 16,
-        }}>
+        <div className="lb-two-col">
           {/* Directory tree */}
           <div style={{
             background: '#18181b',
@@ -250,6 +260,7 @@ class Posts
             fontSize: 13,
             lineHeight: 2,
             color: '#a1a1aa',
+            overflow: 'auto',
           }}>
             <div style={{ color: '#a1a1aa', marginBottom: 4 }}>resources/js/rsc/app/</div>
             <div><span style={{ color: '#e4e4e7' }}>layout.tsx</span></div>
@@ -290,7 +301,7 @@ return PageRoute::make()
       }}>
         <h2 style={{
           fontFamily: f.display,
-          fontSize: 28,
+          fontSize: 'clamp(22px, 4vw, 28px)',
           fontWeight: 700,
           letterSpacing: '-0.03em',
           color: '#fafafa',
@@ -312,14 +323,9 @@ return PageRoute::make()
           Two runtimes, one unix socket. PHP handles your backend. Bun renders React.
         </p>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 0,
-        }}>
+        <div className="lb-arch">
           {/* PHP box */}
-          <div style={{
+          <div className="lb-arch-box" style={{
             background: '#18181b',
             border: '1px solid rgba(168,85,247,0.25)',
             borderRadius: 10,
@@ -357,8 +363,8 @@ return PageRoute::make()
             </div>
           </div>
 
-          {/* Arrow left */}
-          <div style={{
+          {/* Arrow horizontal */}
+          <div className="lb-arch-arrow" style={{
             fontFamily: f.mono,
             fontSize: 18,
             color: '#52525b',
@@ -366,9 +372,19 @@ return PageRoute::make()
           }}>
             &larr;
           </div>
+          {/* Arrow vertical (mobile) */}
+          <div className="lb-arch-arrow-v" style={{
+            fontFamily: f.mono,
+            fontSize: 18,
+            color: '#52525b',
+            padding: '8px 0',
+            textAlign: 'center',
+          }}>
+            &uarr;
+          </div>
 
           {/* Unix socket box */}
-          <div style={{
+          <div className="lb-arch-box" style={{
             background: '#18181b',
             border: '1px solid rgba(251,191,36,0.25)',
             borderRadius: 10,
@@ -406,8 +422,8 @@ return PageRoute::make()
             </div>
           </div>
 
-          {/* Arrow right */}
-          <div style={{
+          {/* Arrow horizontal */}
+          <div className="lb-arch-arrow" style={{
             fontFamily: f.mono,
             fontSize: 18,
             color: '#52525b',
@@ -415,9 +431,19 @@ return PageRoute::make()
           }}>
             &rarr;
           </div>
+          {/* Arrow vertical (mobile) */}
+          <div className="lb-arch-arrow-v" style={{
+            fontFamily: f.mono,
+            fontSize: 18,
+            color: '#52525b',
+            padding: '8px 0',
+            textAlign: 'center',
+          }}>
+            &darr;
+          </div>
 
           {/* Bun box */}
-          <div style={{
+          <div className="lb-arch-box" style={{
             background: '#18181b',
             border: '1px solid rgba(34,211,238,0.25)',
             borderRadius: 10,
