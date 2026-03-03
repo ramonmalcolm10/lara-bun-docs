@@ -3324,12 +3324,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramonmalcolm10/lara-bun.git",
-                "reference": "02b2a4b275cfa9ec82d2611b5bfbab67c90f6f87"
+                "reference": "7044a7ebefb7db9639932050a8a1ad4da4dca215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramonmalcolm10/lara-bun/zipball/02b2a4b275cfa9ec82d2611b5bfbab67c90f6f87",
-                "reference": "02b2a4b275cfa9ec82d2611b5bfbab67c90f6f87",
+                "url": "https://api.github.com/repos/ramonmalcolm10/lara-bun/zipball/7044a7ebefb7db9639932050a8a1ad4da4dca215",
+                "reference": "7044a7ebefb7db9639932050a8a1ad4da4dca215",
                 "shasum": ""
             },
             "require": {
@@ -3383,7 +3383,7 @@
                 "source": "https://github.com/ramonmalcolm10/lara-bun/tree/feature/file-based-router",
                 "issues": "https://github.com/ramonmalcolm10/lara-bun/issues"
             },
-            "time": "2026-03-03T02:16:51+00:00"
+            "time": "2026-03-03T03:15:20+00:00"
         },
         {
             "name": "ramsey/collection",

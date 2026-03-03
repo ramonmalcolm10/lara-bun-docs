@@ -5,8 +5,8 @@ const s = {
   h1: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 12 } as const,
   h2: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', marginTop: 48, marginBottom: 12 } as const,
   h3: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 17, fontWeight: 600, marginTop: 32, marginBottom: 8 } as const,
-  p: { color: '#a1a1aa', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
-  li: { color: '#a1a1aa', fontSize: 15, lineHeight: 1.8, marginBottom: 6, paddingLeft: 8 } as const,
+  p: { color: '#d4d4d8', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
+  li: { color: '#d4d4d8', fontSize: 15, lineHeight: 1.8, marginBottom: 6, paddingLeft: 8 } as const,
   mono: { fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, background: 'rgba(255,255,255,0.06)', padding: '2px 6px', borderRadius: 4, color: '#e4e4e7' } as const,
   hr: { border: 'none', borderTop: '1px solid rgba(255,255,255,0.06)', margin: '40px 0' } as const,
   accent: { color: '#f59e0b' } as const,
@@ -70,11 +70,6 @@ export default function DocsRsc() {
         Parenthesized directories like <span style={s.mono}>(marketing)</span> create route groups — they organize files without adding a URL segment. <span style={s.mono}>app/(marketing)/pricing/page.tsx</span> maps to <span style={s.mono}>GET /pricing</span>.
       </p>
 
-      <h3 style={s.h3}>Domain routing</h3>
-      <p style={s.p}>
-        Prefix a directory with <span style={s.mono}>@</span> for domain-specific routes: <span style={s.mono}>app/@admin.example.com/page.tsx</span> maps to <span style={s.mono}>GET /</span> on <span style={s.mono}>admin.example.com</span>.
-      </p>
-
       <h2 style={s.h2}>Route Configuration (route.php)</h2>
       <p style={s.p}>
         Add a <span style={s.mono}>route.php</span> file alongside a <span style={s.mono}>page.tsx</span> (or in a parent directory) to configure middleware, authorization, static paths, and view data:
@@ -95,7 +90,7 @@ return PageRoute::make()
     ->viewData(fn (string $slug) => ['title' => "Docs: $slug"]);`}
       </CodeBlock>
       <p style={s.p}>
-        Available methods: <span style={s.mono}>middleware()</span>, <span style={s.mono}>can()</span>, <span style={s.mono}>staticPaths()</span>, <span style={s.mono}>viewData()</span>, <span style={s.mono}>name()</span>, <span style={s.mono}>where()</span>.
+        Available methods: <span style={s.mono}>middleware()</span>, <span style={s.mono}>can()</span>, <span style={s.mono}>staticPaths()</span>, <span style={s.mono}>viewData()</span>, <span style={s.mono}>name()</span>, <span style={s.mono}>where()</span>, <span style={s.mono}>domain()</span>, <span style={s.mono}>dynamic()</span>.
       </p>
 
       <h2 style={s.h2}>Auto-Static Detection</h2>

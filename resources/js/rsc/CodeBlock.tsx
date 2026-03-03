@@ -16,7 +16,7 @@ interface Token {
 const c = {
   keyword:  '#c084fc', // purple
   string:   '#86efac', // green
-  comment:  '#52525b', // dim
+  comment:  '#a1a1aa', // dim
   tag:      '#7dd3fc', // sky blue
   attr:     '#fca5a5', // coral
   func:     '#93c5fd', // blue
@@ -431,6 +431,180 @@ function highlightEnv(code: string): Token[][] {
   });
 }
 
+function highlightBlade(code: string): Token[][] {
+  return code.split('\n').map(line => {
+    const tokens: Token[] = [];
+    let i = 0;
+
+    while (i < line.length) {
+      // Blade comment {{-- --}}
+      if (line.slice(i, i + 4) === '{{--') {
+        const end = line.indexOf('--}}', i + 4);
+        if (end !== -1) {
+          tokens.push({ text: line.slice(i, end + 4), color: c.comment });
+          i = end + 4;
+        } else {
+          tokens.push({ text: line.slice(i), color: c.comment });
+          break;
+        }
+        continue;
+      }
+
+      // Blade unescaped {!! !!}
+      if (line.slice(i, i + 3) === '{!!') {
+        const end = line.indexOf('!!}', i + 3);
+        if (end !== -1) {
+          tokens.push({ text: '{!!', color: c.keyword });
+          tokens.push({ text: line.slice(i + 3, end), color: c.attr });
+          tokens.push({ text: '!!}', color: c.keyword });
+          i = end + 3;
+        } else {
+          tokens.push({ text: line.slice(i), color: c.keyword });
+          break;
+        }
+        continue;
+      }
+
+      // Blade echo {{ }}
+      if (line[i] === '{' && line[i + 1] === '{') {
+        const end = line.indexOf('}}', i + 2);
+        if (end !== -1) {
+          tokens.push({ text: '{{', color: c.keyword });
+          tokens.push({ text: line.slice(i + 2, end), color: c.attr });
+          tokens.push({ text: '}}', color: c.keyword });
+          i = end + 2;
+        } else {
+          tokens.push({ text: line.slice(i), color: c.keyword });
+          break;
+        }
+        continue;
+      }
+
+      // Blade directive @php, @if, @endif, etc.
+      if (line[i] === '@' && /[a-zA-Z]/.test(line[i + 1] || '')) {
+        let directive = '@';
+        i++;
+        while (i < line.length && /[a-zA-Z]/.test(line[i])) { directive += line[i]; i++; }
+        tokens.push({ text: directive, color: c.keyword });
+
+        // Capture parenthesized argument
+        if (i < line.length && line[i] === '(') {
+          let depth = 1;
+          let arg = '(';
+          i++;
+          while (i < line.length && depth > 0) {
+            if (line[i] === '(') depth++;
+            if (line[i] === ')') depth--;
+            arg += line[i];
+            i++;
+          }
+          tokens.push({ text: arg, color: c.attr });
+        }
+        continue;
+      }
+
+      // HTML comment
+      if (line.slice(i, i + 4) === '<!--') {
+        const end = line.indexOf('-->', i + 4);
+        if (end !== -1) {
+          tokens.push({ text: line.slice(i, end + 3), color: c.comment });
+          i = end + 3;
+        } else {
+          tokens.push({ text: line.slice(i), color: c.comment });
+          break;
+        }
+        continue;
+      }
+
+      // <!DOCTYPE
+      if (line.slice(i, i + 2) === '<!' && /[A-Z]/.test(line[i + 2] || '')) {
+        const end = line.indexOf('>', i);
+        if (end !== -1) {
+          tokens.push({ text: line.slice(i, end + 1), color: c.tag });
+          i = end + 1;
+        } else {
+          tokens.push({ text: line.slice(i), color: c.tag });
+          break;
+        }
+        continue;
+      }
+
+      // HTML tag
+      if (line[i] === '<') {
+        const closing = line[i + 1] === '/';
+        const tagStart = i;
+        i += closing ? 2 : 1;
+        let tagName = '';
+        while (i < line.length && /[a-zA-Z0-9-]/.test(line[i])) { tagName += line[i]; i++; }
+
+        if (tagName) {
+          tokens.push({ text: line.slice(tagStart, tagStart + (closing ? 2 : 1)), color: c.punct });
+          tokens.push({ text: tagName, color: c.tag });
+
+          // Attributes until >
+          while (i < line.length && line[i] !== '>') {
+            // Blade inside attributes
+            if (line.slice(i, i + 3) === '{!!' || (line[i] === '{' && line[i + 1] === '{')) {
+              // Let the outer loop handle it next iteration
+              break;
+            }
+
+            if (/[a-zA-Z:@-]/.test(line[i])) {
+              let attrName = '';
+              while (i < line.length && /[a-zA-Z0-9:@._-]/.test(line[i])) { attrName += line[i]; i++; }
+              tokens.push({ text: attrName, color: c.attr });
+            } else if (line[i] === '"' || line[i] === "'") {
+              const q = line[i];
+              let str = q;
+              i++;
+              while (i < line.length && line[i] !== q) { str += line[i]; i++; }
+              if (i < line.length) { str += line[i]; i++; }
+              tokens.push({ text: str, color: c.string });
+            } else if (line[i] === '/' && line[i + 1] === '>') {
+              break;
+            } else {
+              tokens.push({ text: line[i], color: c.punct });
+              i++;
+            }
+          }
+          if (i < line.length && line[i] === '>') {
+            if (i > 0 && line[i - 1] === '/') {
+              tokens.push({ text: '/>', color: c.punct });
+              i++;
+            } else {
+              tokens.push({ text: '>', color: c.punct });
+              i++;
+            }
+          }
+          continue;
+        }
+        tokens.push({ text: '<', color: c.punct });
+        continue;
+      }
+
+      // CSS-like content inside <style>
+      if (line[i] === '{' || line[i] === '}' || line[i] === ';' || line[i] === ':') {
+        tokens.push({ text: line[i], color: c.punct });
+        i++;
+        continue;
+      }
+
+      // Word
+      if (/[a-zA-Z_]/.test(line[i])) {
+        let word = '';
+        while (i < line.length && /[a-zA-Z0-9_#.-]/.test(line[i])) { word += line[i]; i++; }
+        tokens.push({ text: word, color: c.plain });
+        continue;
+      }
+
+      tokens.push({ text: line[i], color: c.plain });
+      i++;
+    }
+
+    return tokens;
+  });
+}
+
 function highlightIni(code: string): Token[][] {
   return code.split('\n').map(line => {
     const trimmed = line.trimStart();
@@ -567,6 +741,9 @@ function highlight(code: string, language?: string): Token[][] {
   }
   if (['env', 'dotenv'].includes(lang)) {
     return highlightEnv(code);
+  }
+  if (['html', 'blade', 'htm', 'xml'].includes(lang)) {
+    return highlightBlade(code);
   }
   if (['ini', 'conf', 'toml', 'service'].includes(lang)) {
     return highlightIni(code);

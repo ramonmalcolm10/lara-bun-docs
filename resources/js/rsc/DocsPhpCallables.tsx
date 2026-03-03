@@ -4,7 +4,7 @@ import Link from 'lara-bun/Link';
 const s = {
   h1: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 12 } as const,
   h2: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', marginTop: 48, marginBottom: 12 } as const,
-  p: { color: '#a1a1aa', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
+  p: { color: '#d4d4d8', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
   mono: { fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, background: 'rgba(255,255,255,0.06)', padding: '2px 6px', borderRadius: 4, color: '#e4e4e7' } as const,
   hr: { border: 'none', borderTop: '1px solid rgba(255,255,255,0.06)', margin: '40px 0' } as const,
   accent: { color: '#f59e0b' } as const,
@@ -28,10 +28,10 @@ export default function DocsPhpCallables() {
       <p style={s.p}>
         A callable is any PHP class with an <span style={s.mono}>__invoke()</span> method:
       </p>
-      <CodeBlock language="php" title="app/Rsc/GetUser.php">
+      <CodeBlock language="php" title="app/RSC/GetUser.php">
         {`<?php
 
-namespace App\\Rsc;
+namespace App\\RSC;
 
 use App\\Models\\User;
 
@@ -50,37 +50,31 @@ class GetUser
 }`}
       </CodeBlock>
 
-      <h2 style={s.h2}>Registration</h2>
-
+      <h2 style={s.h2}>Auto-Discovery</h2>
       <p style={s.p}>
-        <strong style={{ color: '#fafafa' }}>Manual registration</strong> — add entries to <span style={s.mono}>config/bun.php</span>:
+        Classes in <span style={s.mono}>app/RSC/</span> are auto-discovered by convention — no registration needed. The callable name matches the class name:
       </p>
-      <CodeBlock language="php" title="config/bun.php">
-        {`'callables' => [
-    'GetUser' => App\\Rsc\\GetUser::class,
-    'ListPosts' => App\\Rsc\\ListPosts::class,
-],`}
-      </CodeBlock>
-
-      <p style={s.p}>
-        <strong style={{ color: '#fafafa' }}>Auto-discovery</strong> — point to a directory and all classes are discovered automatically:
-      </p>
-      <CodeBlock language="php" title="config/bun.php">
-        {`'callables_dir' => app_path('Rsc'),`}
-      </CodeBlock>
-      <p style={s.p}>
-        With auto-discovery, the callable name is the class name. <span style={s.mono}>GetUser.php</span> → <span style={s.mono}>GetUser</span>.
-      </p>
+      <div style={s.box}>
+        <div style={{ fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, lineHeight: 2, color: '#d4d4d8' }}>
+          <div><span style={{ color: '#c084fc' }}>GetUser</span>.php → <span style={{ color: '#86efac' }}>php('GetUser', ...)</span></div>
+          <div><span style={{ color: '#c084fc' }}>ListPosts</span>.php → <span style={{ color: '#86efac' }}>php('ListPosts', ...)</span></div>
+          <div><span style={{ color: '#a1a1aa' }}>Multi-method:</span> <span style={{ color: '#c084fc' }}>Posts</span>::latest() → <span style={{ color: '#86efac' }}>php('Posts.latest')</span></div>
+        </div>
+      </div>
 
       <h2 style={s.h2}>Calling from React</h2>
       <p style={s.p}>
         In a server component, use the global <span style={s.mono}>php()</span> function:
       </p>
       <CodeBlock language="tsx" title="resources/js/rsc/UserCard.tsx">
-        {`declare const php: (name: string, ...args: unknown[]) => Promise<any>;
+        {`interface User {
+  name: string;
+  email: string;
+  avatar: string;
+}
 
 export default async function UserCard({ userId }: { userId: number }) {
-  const user = await php('GetUser', userId);
+  const user = await php<User>('GetUser', userId);
 
   return (
     <div>

@@ -4,7 +4,7 @@ import Link from 'lara-bun/Link';
 const s = {
   h1: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 12 } as const,
   h2: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', marginTop: 48, marginBottom: 12 } as const,
-  p: { color: '#a1a1aa', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
+  p: { color: '#d4d4d8', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
   mono: { fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, background: 'rgba(255,255,255,0.06)', padding: '2px 6px', borderRadius: 4, color: '#e4e4e7' } as const,
   hr: { border: 'none', borderTop: '1px solid rgba(255,255,255,0.06)', margin: '40px 0' } as const,
   accent: { color: '#f59e0b' } as const,
@@ -45,11 +45,8 @@ export default function DocsConfiguration() {
         'source_dir'       => resource_path('js/rsc'),
         'client_build_dir' => public_path('build/rsc'),
         'root_view'        => 'lara-bun::rsc-app',
-
-        // PHP Callables — functions React can invoke
-        'callables'     => [],
-        'callables_dir' => null,
         'callback_timeout' => 5,
+        'static_path'      => storage_path('framework/rsc-static'),
     ],
 
     'entry_points' => [],
@@ -102,16 +99,8 @@ export default function DocsConfiguration() {
 
       <h2 style={s.h2}>Callables</h2>
       <p style={s.p}>
-        Register PHP classes that React server components can invoke via the <span style={s.mono}>php()</span> function. See the <Link href="/docs/php-callables" style={s.accent}>PHP Callables</Link> guide for details.
+        PHP classes in <span style={s.mono}>app/RSC/</span> are auto-discovered by convention. Any class with public methods becomes callable from React via <span style={s.mono}>php('ClassName.method')</span>. No config needed. See the <Link href="/docs/php-callables" style={s.accent}>PHP Callables</Link> guide for details.
       </p>
-      <CodeBlock language="php">
-        {`'callables' => [
-    'GetUser' => App\\Rsc\\GetUser::class,
-],
-
-// Or auto-discover from a directory:
-'callables_dir' => app_path('Rsc'),`}
-      </CodeBlock>
 
       <h2 style={s.h2}>Callback Timeout</h2>
       <p style={s.p}>

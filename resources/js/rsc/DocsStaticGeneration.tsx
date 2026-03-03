@@ -5,8 +5,8 @@ const s = {
   h1: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 12 } as const,
   h2: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', marginTop: 48, marginBottom: 12 } as const,
   h3: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 17, fontWeight: 600, marginTop: 32, marginBottom: 8 } as const,
-  p: { color: '#a1a1aa', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
-  li: { color: '#a1a1aa', fontSize: 15, lineHeight: 1.8, marginBottom: 6, paddingLeft: 8 } as const,
+  p: { color: '#d4d4d8', fontSize: 15, lineHeight: 1.8, marginBottom: 16 } as const,
+  li: { color: '#d4d4d8', fontSize: 15, lineHeight: 1.8, marginBottom: 6, paddingLeft: 8 } as const,
   mono: { fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, background: 'rgba(255,255,255,0.06)', padding: '2px 6px', borderRadius: 4, color: '#e4e4e7' } as const,
   hr: { border: 'none', borderTop: '1px solid rgba(255,255,255,0.06)', margin: '40px 0' } as const,
   accent: { color: '#f59e0b' } as const,
@@ -90,14 +90,14 @@ php artisan rsc:prerender --clean`}
         <div style={{
           fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
           fontSize: 13,
-          color: '#a1a1aa',
+          color: '#d4d4d8',
           lineHeight: 2,
         }}>
-          <div><span style={{ color: '#9a9aa2' }}>storage/framework/rsc-static/</span></div>
+          <div><span style={{ color: '#a1a1aa' }}>storage/framework/rsc-static/</span></div>
           <div style={{ paddingLeft: 16 }}>index.html</div>
           <div style={{ paddingLeft: 16 }}>index.flight</div>
           <div style={{ paddingLeft: 16 }}>index.meta.json</div>
-          <div style={{ paddingLeft: 16 }}><span style={{ color: '#9a9aa2' }}>docs/</span></div>
+          <div style={{ paddingLeft: 16 }}><span style={{ color: '#a1a1aa' }}>docs/</span></div>
           <div style={{ paddingLeft: 32 }}>installation.html</div>
           <div style={{ paddingLeft: 32 }}>installation.flight</div>
           <div style={{ paddingLeft: 32 }}>installation.meta.json</div>
@@ -115,7 +115,7 @@ php artisan rsc:prerender --clean`}
       <p style={s.p}>
         This creates <span style={s.mono}>resources/views/vendor/lara-bun/rsc-app.blade.php</span>. Add your font links, meta tags, and styles in the <span style={s.mono}>{'<head>'}</span> — they'll be included in both streamed and pre-rendered pages:
       </p>
-      <CodeBlock language="html" title="resources/views/vendor/lara-bun/rsc-app.blade.php">
+      <CodeBlock language="blade" title="resources/views/vendor/lara-bun/rsc-app.blade.php">
         {`<!DOCTYPE html>
 <html>
 <head>
@@ -125,6 +125,10 @@ php artisan rsc:prerender --clean`}
     <meta name="description" content="{{ $description ?? '' }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=...">
+    @php($hydrateEntry = collect(glob(public_path('build/rsc/entry.hydrate-*.js')))->first())
+    @if ($hydrateEntry)
+        <link rel="modulepreload" href="/build/rsc/{{ basename($hydrateEntry) }}">
+    @endif
     <style>
         body { background: #09090b; color: #fafafa; }
     </style>
