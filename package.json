@@ -5,9 +5,8 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "build:rsc": "bun vendor/ramonmalcolm10/lara-bun/resources/build-rsc.ts",
-        "dev:rsc": "bun --watch vendor/ramonmalcolm10/lara-bun/resources/build-rsc.ts",
-        "build:static": "bun run build:rsc && php artisan rsc:prerender --clean"
+        "build:rsc": "php artisan rsc:build --clean",
+        "dev:rsc": "bun --watch vendor/ramonmalcolm10/lara-bun/resources/build-rsc.ts"
     },
     "dependencies": {
         "react": "^19.0.0",
