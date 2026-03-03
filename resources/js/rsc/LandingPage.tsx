@@ -1,448 +1,484 @@
 import Link from 'lara-bun/Link';
 import CodeBlock from './CodeBlock';
 
-const features = [
-  {
-    icon: '⚡',
-    title: 'Bun-Powered SSR',
-    description: 'Replace Node.js with Bun for Inertia SSR. Faster cold starts, lower memory, same API.',
-    color: '#f59e0b',
-  },
-  {
-    icon: '🧩',
-    title: 'React Server Components',
-    description: 'Full RSC support with streaming HTML, Flight payloads, and progressive hydration.',
-    color: '#a78bfa',
-  },
-  {
-    icon: '🔌',
-    title: 'Unix Socket Bridge',
-    description: 'Zero-overhead PHP ↔ Bun communication via a binary frame protocol over Unix sockets.',
-    color: '#22d3ee',
-  },
-  {
-    icon: '📞',
-    title: 'PHP Callables',
-    description: 'Call PHP functions directly from your React server components. Query Eloquent, run policies, all from JSX.',
-    color: '#4ade80',
-  },
-  {
-    icon: '🚀',
-    title: 'Server Actions',
-    description: '"use server" directives that route through Bun back to PHP. Type-safe mutations with validation.',
-    color: '#f97316',
-  },
-  {
-    icon: '🏗️',
-    title: 'Zero Config',
-    description: 'Auto-discovers components, generates manifests, and builds server + client bundles in one command.',
-    color: '#fb7185',
-  },
-];
-
-const steps = [
-  {
-    step: '01',
-    title: 'Install the package',
-    code: 'composer require ramonmalcolm10/lara-bun',
-  },
-  {
-    step: '02',
-    title: 'Create a component',
-    code: `// resources/js/rsc/Dashboard.tsx
-export default function Dashboard({ user }: { user: string }) {
-  return <h1>Welcome, {user}</h1>;
-}`,
-  },
-  {
-    step: '03',
-    title: 'Return from a route',
-    code: `// routes/web.php
-Route::get('/dashboard', fn () => rsc('Dashboard', [
-    'user' => auth()->user()->name,
-]));`,
-  },
-  {
-    step: '04',
-    title: 'Build and serve',
-    code: `bun run build:rsc
-php artisan bun:serve`,
-  },
-];
+const f = {
+  display: "'Bricolage Grotesque', sans-serif",
+  body: "'Outfit', system-ui, sans-serif",
+  mono: "ui-monospace, 'Fira Code', 'Cascadia Code', monospace",
+};
 
 export default function LandingPage() {
   return (
     <div>
       {/* Hero */}
       <section style={{
-        padding: '120px 24px 80px',
+        padding: '100px 24px 0',
+        maxWidth: 960,
+        margin: '0 auto',
         textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
       }}>
-        {/* Glow */}
+        <h1 style={{
+          fontFamily: f.display,
+          fontSize: 'clamp(52px, 8vw, 96px)',
+          fontWeight: 800,
+          lineHeight: 0.92,
+          letterSpacing: '-0.05em',
+          color: '#fafafa',
+          marginBottom: 28,
+          animation: 'fadeInUp 0.6s ease-out both',
+        }}>
+          LaraBun
+        </h1>
+
+        <p style={{
+          fontFamily: f.body,
+          fontSize: 'clamp(17px, 2.2vw, 21px)',
+          fontWeight: 300,
+          color: '#71717a',
+          lineHeight: 1.6,
+          maxWidth: 520,
+          margin: '0 auto 56px',
+          animation: 'fadeInUp 0.6s ease-out 0.1s both',
+        }}>
+          A bridge between PHP and Bun for React Server Components,
+          streaming, and server actions in Laravel.
+        </p>
+
+        {/* The pitch: two code blocks side by side */}
         <div style={{
-          position: 'absolute',
-          top: -200,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 600,
-          height: 600,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 16,
+          textAlign: 'left',
+          marginBottom: 48,
+          animation: 'fadeInUp 0.6s ease-out 0.2s both',
+        }}>
+          <CodeBlock language="tsx" title="resources/js/rsc/app/page.tsx">
+            {`export default async function Home() {
+  const posts = await php('Posts.latest');
 
-        <div style={{ position: 'relative', maxWidth: 800, margin: '0 auto' }}>
-          {/* Badge */}
+  return (
+    <main>
+      <h1>Recent posts</h1>
+      {posts.map(p => (
+        <article key={p.id}>
+          <h2>{p.title}</h2>
+          <p>{p.excerpt}</p>
+        </article>
+      ))}
+    </main>
+  );
+}`}
+          </CodeBlock>
+
+          <CodeBlock language="php" title="app/RSC/Posts.php">
+            {`<?php
+
+namespace App\\RSC;
+
+use App\\Models\\Post;
+
+class Posts
+{
+    public function latest(): array
+    {
+        return Post::with('author')
+            ->published()
+            ->latest()
+            ->take(10)
+            ->get()
+            ->toArray();
+    }
+}`}
+          </CodeBlock>
+        </div>
+
+        {/* Install + CTAs */}
+        <div style={{
+          animation: 'fadeInUp 0.6s ease-out 0.3s both',
+          marginBottom: 48,
+        }}>
           <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '6px 16px',
-            borderRadius: 100,
-            background: 'rgba(245,158,11,0.08)',
-            border: '1px solid rgba(245,158,11,0.15)',
+            fontFamily: f.mono,
             fontSize: 13,
-            fontWeight: 500,
-            color: '#f59e0b',
-            marginBottom: 32,
-            fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
-          }}>
-            <span style={{
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              background: '#f59e0b',
-              animation: 'glow 2s ease-in-out infinite',
-            }} />
-            Now with React Server Components
-          </div>
-
-          <h1 style={{
-            fontFamily: "'Bricolage Grotesque', sans-serif",
-            fontSize: 'clamp(40px, 6vw, 72px)',
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: '-0.03em',
+            color: '#71717a',
             marginBottom: 24,
-            color: '#fafafa',
           }}>
-            Laravel meets{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, #f59e0b, #f97316)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              Bun
-            </span>
-          </h1>
-
-          <p style={{
-            fontSize: 'clamp(16px, 2vw, 20px)',
-            color: '#a1a1aa',
-            maxWidth: 560,
-            margin: '0 auto 40px',
-            lineHeight: 1.7,
-          }}>
-            A bridge between PHP and Bun's JavaScript runtime.
-            Server-render React components, stream HTML, and call PHP from JSX — all over a Unix socket.
-          </p>
-
-          {/* Install command */}
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 12,
-            padding: '14px 24px',
-            borderRadius: 10,
-            background: '#18181b',
-            border: '1px solid rgba(255,255,255,0.08)',
-            fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
-            fontSize: 14,
-            color: '#e4e4e7',
-            marginBottom: 32,
-          }}>
-            <span style={{ color: '#9a9aa2' }}>$</span>
-            composer require ramonmalcolm10/lara-bun
+            <span style={{ userSelect: 'none' }}>$ </span>
+            <span style={{ color: '#d4d4d8' }}>composer require ramonmalcolm10/lara-bun</span>
           </div>
 
-          {/* CTAs */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 16,
-            flexWrap: 'wrap',
-          }}>
+          <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link
               href="/docs/installation"
               prefetch="hover"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '12px 28px',
-                borderRadius: 10,
-                background: 'linear-gradient(135deg, #f59e0b, #f97316)',
-                color: '#09090b',
+                fontFamily: f.body,
                 fontWeight: 600,
-                fontSize: 15,
-                transition: 'transform 0.15s, box-shadow 0.15s',
-                boxShadow: '0 4px 24px rgba(245,158,11,0.25)',
+                fontSize: 14,
+                padding: '10px 22px',
+                background: '#fafafa',
+                color: '#09090b',
+                borderRadius: 6,
               }}
             >
-              Get Started
-              <span>→</span>
+              Documentation
             </Link>
             <a
               href="https://github.com/ramonmalcolm10/lara-bun"
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '12px 28px',
-                borderRadius: 10,
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: '#fafafa',
+                fontFamily: f.body,
                 fontWeight: 500,
-                fontSize: 15,
-                background: 'rgba(255,255,255,0.03)',
+                fontSize: 14,
+                padding: '10px 22px',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: '#d4d4d8',
+                borderRadius: 6,
               }}
             >
-              View on GitHub
+              GitHub
             </a>
           </div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features — cards with icons */}
       <section style={{
-        padding: '80px 24px',
-        maxWidth: 1200,
+        maxWidth: 960,
         margin: '0 auto',
+        padding: '48px 24px 64px',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <h2 style={{
-            fontFamily: "'Bricolage Grotesque', sans-serif",
-            fontSize: 36,
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            marginBottom: 16,
-          }}>
-            Everything you need
-          </h2>
-          <p style={{ color: '#a1a1aa', fontSize: 17, maxWidth: 500, margin: '0 auto' }}>
-            A complete runtime bridge between Laravel and the Bun JavaScript engine.
-          </p>
-        </div>
-
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 20,
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 16,
         }}>
-          {features.map((f) => (
-            <div key={f.title} style={{
-              padding: 28,
-              borderRadius: 14,
+          {([
+            ['📁', 'File-based routing', 'page.tsx becomes a route. layout.tsx wraps it. Nested layouts compose automatically. No manual route config needed.'],
+            ['🌊', 'Streaming HTML', 'Suspense boundaries stream progressively over the wire. The shell ships instantly, data fills in as it resolves.'],
+            ['🐘', 'PHP callables', 'Call Eloquent queries, run gate checks, access sessions and auth — all from inside your JSX server components.'],
+            ['⚡', 'Server actions', '"use server" functions route form mutations through Bun back to PHP. Type-safe, no API layer to maintain.'],
+            ['📦', 'Static generation', 'Pages without dynamic segments are automatically static. Add route.php with staticPaths() for parameterized routes.'],
+            ['🔌', 'Unix socket bridge', 'Binary frame protocol over a unix socket. Sub-millisecond PHP ↔ Bun communication with zero network overhead.'],
+          ] as [string, string, string][]).map(([icon, title, desc]) => (
+            <div key={title} style={{
               background: '#18181b',
               border: '1px solid rgba(255,255,255,0.06)',
-              transition: 'border-color 0.2s, transform 0.2s',
+              borderRadius: 8,
+              padding: '20px 20px 24px',
             }}>
               <div style={{
-                width: 44,
-                height: 44,
-                borderRadius: 10,
-                background: `${f.color}12`,
+                fontSize: 20,
+                marginBottom: 12,
+                width: 36,
+                height: 36,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 20,
-                marginBottom: 16,
+                background: 'rgba(255,255,255,0.04)',
+                borderRadius: 8,
               }}>
-                {f.icon}
+                {icon}
               </div>
-              <h3 style={{
-                fontFamily: "'Bricolage Grotesque', sans-serif",
-                fontSize: 18,
+              <div style={{
+                fontFamily: f.display,
+                fontSize: 15,
                 fontWeight: 600,
+                color: '#e4e4e7',
                 marginBottom: 8,
-                color: '#fafafa',
               }}>
-                {f.title}
-              </h3>
-              <p style={{ color: '#a1a1aa', fontSize: 14, lineHeight: 1.7 }}>
-                {f.description}
-              </p>
+                {title}
+              </div>
+              <div style={{
+                fontFamily: f.body,
+                fontSize: 13,
+                fontWeight: 300,
+                color: '#a1a1aa',
+                lineHeight: 1.6,
+              }}>
+                {desc}
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Architecture Diagram */}
+      {/* File-based routing */}
       <section style={{
-        padding: '80px 24px',
-        maxWidth: 900,
+        maxWidth: 960,
         margin: '0 auto',
+        padding: '64px 24px 80px',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{
-            fontFamily: "'Bricolage Grotesque', sans-serif",
-            fontSize: 36,
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            marginBottom: 16,
-          }}>
-            How it works
-          </h2>
-          <p style={{ color: '#a1a1aa', fontSize: 17 }}>
-            PHP and Bun communicate over a persistent Unix socket using a binary frame protocol.
-          </p>
-        </div>
+        <h2 style={{
+          fontFamily: f.display,
+          fontSize: 28,
+          fontWeight: 700,
+          letterSpacing: '-0.03em',
+          color: '#fafafa',
+          marginBottom: 8,
+        }}>
+          File-based routing
+        </h2>
+        <p style={{
+          fontFamily: f.body,
+          fontSize: 15,
+          fontWeight: 300,
+          color: '#a1a1aa',
+          marginBottom: 40,
+          maxWidth: 480,
+        }}>
+          Next.js App Router conventions. Pages and layouts are auto-discovered.
+          Static pages detected automatically.
+        </p>
 
         <div style={{
-          background: '#18181b',
-          borderRadius: 16,
-          border: '1px solid rgba(255,255,255,0.06)',
-          padding: '40px 32px',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 16,
         }}>
+          {/* Directory tree */}
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 0,
-            flexWrap: 'wrap',
-            fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
+            background: '#18181b',
+            border: '1px solid rgba(255,255,255,0.06)',
+            borderRadius: 8,
+            padding: '20px 24px',
+            fontFamily: f.mono,
             fontSize: 13,
+            lineHeight: 2,
+            color: '#a1a1aa',
           }}>
-            {/* PHP */}
-            <div style={{
-              padding: '20px 28px',
-              borderRadius: 12,
-              background: 'rgba(167,139,250,0.08)',
-              border: '1px solid rgba(167,139,250,0.2)',
-              textAlign: 'center',
-              minWidth: 140,
-            }}>
-              <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>RUNTIME</div>
-              <div style={{ color: '#a78bfa', fontWeight: 600, fontSize: 16 }}>PHP</div>
-              <div style={{ color: '#a1a1aa', fontSize: 11, marginTop: 4 }}>Laravel · Eloquent</div>
-            </div>
+            <div style={{ color: '#a1a1aa', marginBottom: 4 }}>resources/js/rsc/app/</div>
+            <div><span style={{ color: '#e4e4e7' }}>layout.tsx</span></div>
+            <div><span style={{ color: '#e4e4e7' }}>page.tsx</span> <span style={{ color: '#71717a' }}>&rarr;</span> <span style={{ color: '#fafafa' }}>/</span></div>
+            <div style={{ color: '#a1a1aa' }}>about/</div>
+            <div style={{ paddingLeft: 20 }}><span style={{ color: '#e4e4e7' }}>page.tsx</span> <span style={{ color: '#71717a' }}>&rarr;</span> <span style={{ color: '#fafafa' }}>/about</span></div>
+            <div style={{ color: '#a1a1aa' }}>docs/</div>
+            <div style={{ paddingLeft: 20 }}><span style={{ color: '#e4e4e7' }}>layout.tsx</span></div>
+            <div style={{ paddingLeft: 20 }}><span style={{ color: '#e4e4e7' }}>page.tsx</span> <span style={{ color: '#71717a' }}>&rarr;</span> <span style={{ color: '#fafafa' }}>/docs</span></div>
+            <div style={{ paddingLeft: 20, color: '#a1a1aa' }}>[slug]/</div>
+            <div style={{ paddingLeft: 40 }}><span style={{ color: '#e4e4e7' }}>page.tsx</span> <span style={{ color: '#71717a' }}>&rarr;</span> <span style={{ color: '#fafafa' }}>/docs/{'{slug}'}</span></div>
+            <div style={{ paddingLeft: 40 }}><span style={{ color: '#e4e4e7' }}>route.php</span></div>
+          </div>
 
-            {/* Arrow */}
+          <CodeBlock language="php" title="app/docs/[slug]/route.php">
+            {`<?php
+
+use RamonMalcolm\\LaraBun\\Rsc\\PageRoute;
+
+return PageRoute::make()
+    ->middleware(['auth', 'verified'])
+    ->staticPaths(
+        fn () => Post::pluck('slug')->all()
+    )
+    ->viewData(fn (string $slug) => [
+        'title' => "Docs: $slug",
+    ]);`}
+          </CodeBlock>
+        </div>
+      </section>
+
+      {/* Architecture diagram */}
+      <section style={{
+        maxWidth: 960,
+        margin: '0 auto',
+        padding: '64px 24px 56px',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+      }}>
+        <h2 style={{
+          fontFamily: f.display,
+          fontSize: 28,
+          fontWeight: 700,
+          letterSpacing: '-0.03em',
+          color: '#fafafa',
+          marginBottom: 8,
+          textAlign: 'center',
+        }}>
+          How it works
+        </h2>
+        <p style={{
+          fontFamily: f.body,
+          fontSize: 15,
+          fontWeight: 300,
+          color: '#a1a1aa',
+          marginBottom: 40,
+          textAlign: 'center',
+          maxWidth: 480,
+          margin: '0 auto 40px',
+        }}>
+          Two runtimes, one unix socket. PHP handles your backend. Bun renders React.
+        </p>
+
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 0,
+        }}>
+          {/* PHP box */}
+          <div style={{
+            background: '#18181b',
+            border: '1px solid rgba(168,85,247,0.25)',
+            borderRadius: 10,
+            padding: '24px 28px',
+            textAlign: 'center',
+            minWidth: 200,
+          }}>
             <div style={{
-              padding: '0 12px',
+              fontFamily: f.mono,
+              fontSize: 10,
+              fontWeight: 500,
+              color: '#a78bfa',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase' as const,
+              marginBottom: 8,
+            }}>
+              Runtime
+            </div>
+            <div style={{
+              fontFamily: f.display,
+              fontSize: 22,
+              fontWeight: 700,
+              color: '#e4e4e7',
+              marginBottom: 6,
+            }}>
+              PHP
+            </div>
+            <div style={{
+              fontFamily: f.body,
+              fontSize: 12,
               color: '#a1a1aa',
-              fontSize: 20,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 4,
+              lineHeight: 1.5,
             }}>
-              <span>⟷</span>
-              <span style={{ fontSize: 11, color: '#9a9aa2' }}>frames</span>
+              Laravel, Eloquent,<br />Sessions, Auth
             </div>
+          </div>
 
-            {/* Socket */}
+          {/* Arrow left */}
+          <div style={{
+            fontFamily: f.mono,
+            fontSize: 18,
+            color: '#52525b',
+            padding: '0 8px',
+          }}>
+            &larr;
+          </div>
+
+          {/* Unix socket box */}
+          <div style={{
+            background: '#18181b',
+            border: '1px solid rgba(251,191,36,0.25)',
+            borderRadius: 10,
+            padding: '24px 28px',
+            textAlign: 'center',
+            minWidth: 180,
+          }}>
             <div style={{
-              padding: '20px 28px',
-              borderRadius: 12,
-              background: 'rgba(245,158,11,0.08)',
-              border: '1px solid rgba(245,158,11,0.2)',
-              textAlign: 'center',
-              minWidth: 140,
+              fontFamily: f.mono,
+              fontSize: 10,
+              fontWeight: 500,
+              color: '#fbbf24',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase' as const,
+              marginBottom: 8,
             }}>
-              <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>BRIDGE</div>
-              <div style={{ color: '#f59e0b', fontWeight: 600, fontSize: 16 }}>Unix Socket</div>
-              <div style={{ color: '#a1a1aa', fontSize: 11, marginTop: 4 }}>4-byte len + JSON</div>
+              Bridge
             </div>
-
-            {/* Arrow */}
             <div style={{
-              padding: '0 12px',
+              fontFamily: f.display,
+              fontSize: 22,
+              fontWeight: 700,
+              color: '#e4e4e7',
+              marginBottom: 6,
+            }}>
+              Unix Socket
+            </div>
+            <div style={{
+              fontFamily: f.body,
+              fontSize: 12,
               color: '#a1a1aa',
-              fontSize: 20,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 4,
+              lineHeight: 1.5,
             }}>
-              <span>⟷</span>
-              <span style={{ fontSize: 11, color: '#9a9aa2' }}>frames</span>
+              Binary frame protocol,<br />sub-ms latency
             </div>
+          </div>
 
-            {/* Bun */}
+          {/* Arrow right */}
+          <div style={{
+            fontFamily: f.mono,
+            fontSize: 18,
+            color: '#52525b',
+            padding: '0 8px',
+          }}>
+            &rarr;
+          </div>
+
+          {/* Bun box */}
+          <div style={{
+            background: '#18181b',
+            border: '1px solid rgba(34,211,238,0.25)',
+            borderRadius: 10,
+            padding: '24px 28px',
+            textAlign: 'center',
+            minWidth: 200,
+          }}>
             <div style={{
-              padding: '20px 28px',
-              borderRadius: 12,
-              background: 'rgba(34,211,238,0.08)',
-              border: '1px solid rgba(34,211,238,0.2)',
-              textAlign: 'center',
-              minWidth: 140,
+              fontFamily: f.mono,
+              fontSize: 10,
+              fontWeight: 500,
+              color: '#22d3ee',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase' as const,
+              marginBottom: 8,
             }}>
-              <div style={{ fontSize: 11, color: '#9a9aa2', marginBottom: 6 }}>RUNTIME</div>
-              <div style={{ color: '#22d3ee', fontWeight: 600, fontSize: 16 }}>Bun</div>
-              <div style={{ color: '#a1a1aa', fontSize: 11, marginTop: 4 }}>React · RSC · SSR</div>
+              Runtime
+            </div>
+            <div style={{
+              fontFamily: f.display,
+              fontSize: 22,
+              fontWeight: 700,
+              color: '#e4e4e7',
+              marginBottom: 6,
+            }}>
+              Bun
+            </div>
+            <div style={{
+              fontFamily: f.body,
+              fontSize: 12,
+              color: '#a1a1aa',
+              lineHeight: 1.5,
+            }}>
+              React Server Components,<br />SSR, Streaming
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick Start */}
+      {/* Bottom CTA */}
       <section style={{
-        padding: '80px 24px 120px',
-        maxWidth: 700,
+        maxWidth: 960,
         margin: '0 auto',
+        padding: '56px 24px 120px',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+        textAlign: 'center',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{
-            fontFamily: "'Bricolage Grotesque', sans-serif",
-            fontSize: 36,
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            marginBottom: 16,
-          }}>
-            Up and running in minutes
-          </h2>
-        </div>
-
-        {steps.map((s, i) => (
-          <div key={s.step} style={{ marginBottom: i < steps.length - 1 ? 32 : 0 }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              marginBottom: 12,
-            }}>
-              <span style={{
-                fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
-                fontSize: 12,
-                fontWeight: 600,
-                color: '#f59e0b',
-                background: 'rgba(245,158,11,0.08)',
-                padding: '2px 10px',
-                borderRadius: 6,
-              }}>
-                {s.step}
-              </span>
-              <span style={{
-                fontFamily: "'Bricolage Grotesque', sans-serif",
-                fontSize: 16,
-                fontWeight: 600,
-                color: '#fafafa',
-              }}>
-                {s.title}
-              </span>
-            </div>
-            <CodeBlock language={s.step === '03' ? 'php' : s.step === '02' ? 'tsx' : 'bash'}>
-              {s.code}
-            </CodeBlock>
-          </div>
-        ))}
+        <Link
+          href="/docs/installation"
+          prefetch="hover"
+          style={{
+            fontFamily: f.body,
+            fontWeight: 500,
+            fontSize: 15,
+            color: '#d4d4d8',
+            borderBottom: '1px solid #71717a',
+            paddingBottom: 2,
+          }}
+        >
+          Read the docs &rarr;
+        </Link>
       </section>
     </div>
   );
