@@ -19,6 +19,7 @@
 /storage/*.key
 /storage/pail
 /bootstrap/rsc
+server-actions.generated.ts1
 /storage/framework/rsc-static
 /vendor
 Homestead.json

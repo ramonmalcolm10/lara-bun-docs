@@ -107,10 +107,16 @@ BUN_BRIDGE_SOCKET=/tmp/my-app-bridge.sock`}
 bun run build:rsc
 
 # Start the Bun worker
-php artisan bun:serve`}
+php artisan bun:serve
+
+# Or start with auto-restart on rebuild
+php artisan bun:serve --watch`}
       </CodeBlock>
       <p style={s.p}>
         The build step auto-discovers your components, generates manifests, and creates optimized bundles. The <span style={s.mono}>bun:serve</span> command starts the Bun worker that listens on the Unix socket.
+      </p>
+      <p style={s.p}>
+        The <span style={s.mono}>--watch</span> flag monitors your RSC build output and automatically restarts the worker when bundles change — no manual restart needed after each <span style={s.mono}>bun run build:rsc</span>.
       </p>
 
       <hr style={s.hr} />

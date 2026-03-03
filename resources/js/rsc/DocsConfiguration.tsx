@@ -66,6 +66,39 @@ export default function DocsConfiguration() {
         {`BUN_WORKERS=4`}
       </CodeBlock>
 
+      <h2 style={s.h2}>Artisan Command</h2>
+      <p style={s.p}>
+        The <span style={s.mono}>bun:serve</span> command accepts the following options:
+      </p>
+      <table style={s.table}>
+        <thead>
+          <tr>
+            <th style={s.th}>Option</th>
+            <th style={s.th}>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{ ...s.td, fontFamily: "ui-monospace, 'Fira Code', monospace", fontSize: 13, whiteSpace: 'nowrap' }}>--watch</td>
+            <td style={s.td}>Auto-restart workers when RSC build output changes. Polls <span style={s.mono}>browser-chunks.json</span> for modifications and restarts all workers on change.</td>
+          </tr>
+          <tr>
+            <td style={{ ...s.td, fontFamily: "ui-monospace, 'Fira Code', monospace", fontSize: 13, whiteSpace: 'nowrap' }}>--socket=PATH</td>
+            <td style={s.td}>Override the Unix socket path (defaults to <span style={s.mono}>config('bun.socket_path')</span>).</td>
+          </tr>
+        </tbody>
+      </table>
+      <CodeBlock language="bash">
+        {`# Development — auto-restart on rebuild
+php artisan bun:serve --watch
+
+# Production — stable process, managed by Supervisor/systemd
+php artisan bun:serve`}
+      </CodeBlock>
+      <p style={s.p}>
+        During development, pair <span style={s.mono}>--watch</span> with your build command in separate terminals. The worker detects when <span style={s.mono}>bun run build:rsc</span> finishes and automatically picks up the new bundles.
+      </p>
+
       <h2 style={s.h2}>SSR vs RSC</h2>
       <p style={s.p}>
         LaraBun supports two modes. Enable one or both:
@@ -99,7 +132,7 @@ export default function DocsConfiguration() {
 
       <h2 style={s.h2}>Callables</h2>
       <p style={s.p}>
-        PHP classes in <span style={s.mono}>app/RSC/</span> are auto-discovered by convention. Any class with public methods becomes callable from React via <span style={s.mono}>php('ClassName.method')</span>. No config needed. See the <Link href="/docs/php-callables" style={s.accent}>PHP Callables</Link> guide for details.
+        PHP classes in <span style={s.mono}>app/Rsc/</span> are auto-discovered by convention. Any class with public methods becomes callable from React via <span style={s.mono}>php('ClassName.method')</span>. No config needed. See the <Link href="/docs/php-callables" style={s.accent}>PHP Callables</Link> guide for details.
       </p>
 
       <h2 style={s.h2}>Callback Timeout</h2>
@@ -109,7 +142,7 @@ export default function DocsConfiguration() {
 
       <h2 style={s.h2}>Server Actions</h2>
       <p style={s.p}>
-        Server actions are auto-discovered from <span style={s.mono}>app/RSC/Actions/</span> by convention. Place your action classes there and run <span style={s.mono}>php artisan rsc:action-manifest</span> to generate the manifest. See <Link href="/docs/server-actions" style={s.accent}>Server Actions</Link> for details.
+        Server actions are auto-discovered from <span style={s.mono}>app/Rsc/Actions/</span> by convention. Place your action classes there and run <span style={s.mono}>php artisan rsc:action-manifest</span> to generate the manifest. See <Link href="/docs/server-actions" style={s.accent}>Server Actions</Link> for details.
       </p>
 
       <hr style={s.hr} />

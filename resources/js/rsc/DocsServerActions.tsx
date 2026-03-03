@@ -26,7 +26,7 @@ export default function DocsServerActions() {
           <div>
             <p style={{ color: '#a78bfa', fontSize: 13, fontWeight: 600, marginBottom: 6 }}>PHP Actions</p>
             <p style={{ color: '#a1a1aa', fontSize: 13, lineHeight: 1.7 }}>
-              Create classes in <span style={s.mono}>app/RSC/Actions/</span>. Auto-discovered by convention — the build script generates JS stubs.
+              Create classes in <span style={s.mono}>app/Rsc/Actions/</span>. Auto-discovered by convention — the build script generates JS stubs.
             </p>
           </div>
           <div>
@@ -41,12 +41,12 @@ export default function DocsServerActions() {
       <h2 style={s.h2}>PHP Actions</h2>
 
       <p style={s.p}>
-        <strong style={{ color: '#fafafa' }}>1.</strong> Create a class in <span style={s.mono}>app/RSC/Actions/</span>:
+        <strong style={{ color: '#fafafa' }}>1.</strong> Create a class in <span style={s.mono}>app/Rsc/Actions/</span>:
       </p>
-      <CodeBlock language="php" title="app/RSC/Actions/CreatePost.php">
+      <CodeBlock language="php" title="app/Rsc/Actions/CreatePost.php">
         {`<?php
 
-namespace App\\RSC\\Actions;
+namespace App\\Rsc\\Actions;
 
 use App\\Models\\Post;
 use Illuminate\\Support\\Facades\\Auth;
@@ -67,7 +67,7 @@ class CreatePost
       </CodeBlock>
 
       <p style={s.p}>
-        That's it — no config needed. Classes in <span style={s.mono}>app/RSC/Actions/</span> are auto-discovered. The naming convention:
+        That's it — no config needed. Classes in <span style={s.mono}>app/Rsc/Actions/</span> are auto-discovered. The naming convention:
       </p>
       <div style={s.box}>
         <div style={{ fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, lineHeight: 2, color: '#d4d4d8' }}>

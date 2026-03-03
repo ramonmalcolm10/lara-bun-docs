@@ -2,4 +2,4 @@
 
 use RamonMalcolm\LaraBun\Rsc\PageRoute;
 
-return PageRoute::make()->dynamic();
+return PageRoute::make()->forceDynamic();

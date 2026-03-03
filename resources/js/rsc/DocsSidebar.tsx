@@ -38,6 +38,7 @@ const sections: NavSection[] = [
       { label: 'Static Generation', slug: 'static-generation' },
       { label: 'Deployment', slug: 'deployment' },
       { label: 'Suspense Demo', slug: 'suspense-demo' },
+      { label: 'Action Demo', slug: 'action-demo' },
     ],
   },
 ];

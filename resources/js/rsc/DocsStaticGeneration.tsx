@@ -36,15 +36,54 @@ export default function DocsStaticGeneration() {
 
       <h2 style={s.h2}>Auto-Static Detection</h2>
       <p style={s.p}>
-        With file-based routing, pages are <strong style={{ color: '#fafafa' }}>automatically classified</strong> as static or dynamic based on their path:
+        LaraBun detects dynamic pages <strong style={{ color: '#fafafa' }}>at prerender time</strong>, similar to Next.js. When <span style={s.mono}>rsc:prerender</span> runs, it actually renders each page and monitors for dynamic API calls. Pages that use any dynamic API are skipped automatically.
       </p>
-      <ul style={{ listStyle: 'none' }}>
-        <li style={s.li}>• Pages <strong style={{ color: '#fafafa' }}>without</strong> dynamic segments (e.g. <span style={s.mono}>app/about/page.tsx</span>) → <strong style={{ color: '#4ade80' }}>automatically static</strong></li>
-        <li style={s.li}>• Pages <strong style={{ color: '#fafafa' }}>with</strong> <span style={s.mono}>[param]</span> segments (e.g. <span style={s.mono}>app/docs/[slug]/page.tsx</span>) → <strong style={{ color: '#f59e0b' }}>dynamic by default</strong></li>
-      </ul>
+
+      <h3 style={s.h3}>Detected Dynamic APIs</h3>
+      <div style={s.box}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <th style={{ textAlign: 'left', padding: '8px 12px', color: '#fafafa', fontWeight: 600 }}>API</th>
+              <th style={{ textAlign: 'left', padding: '8px 12px', color: '#fafafa', fontWeight: 600 }}>Why Dynamic</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['php()', 'Server-side data (DB, cookies, headers, etc.)'],
+              ['fetch()', 'External HTTP requests'],
+              ['new Date() / Date.now()', 'Current time — non-deterministic'],
+              ['Math.random()', 'Non-deterministic output'],
+              ['crypto.randomUUID()', 'Non-deterministic output'],
+              ['crypto.getRandomValues()', 'Non-deterministic output'],
+            ].map(([api, reason]) => (
+              <tr key={api} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                <td style={{ padding: '8px 12px', fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, color: '#e4e4e7' }}>{api}</td>
+                <td style={{ padding: '8px 12px', color: '#a1a1aa' }}>{reason}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p style={s.p}>
-        Static pages get the <span style={s.mono}>ServeStaticRsc</span> middleware auto-applied and are picked up by <span style={s.mono}>rsc:prerender</span> with no extra config. Any <span style={s.mono}>php()</span> calls in static pages execute at prerender time — data is baked into the static HTML.
+        <span style={s.mono}>new Date("2024-01-01")</span> with arguments is <strong style={{ color: '#4ade80' }}>not</strong> flagged — only <span style={s.mono}>new Date()</span> with no arguments (current time) triggers dynamic detection.
       </p>
+
+      <h3 style={s.h3}>Route-Level Overrides</h3>
+      <ul style={{ listStyle: 'none' }}>
+        <li style={s.li}>• <span style={s.mono}>forceStatic()</span> — ignore dynamic API detection and always write static files. Data from <span style={s.mono}>php()</span>, <span style={s.mono}>fetch()</span>, etc. is baked into the static HTML at prerender time.</li>
+        <li style={s.li}>• <span style={s.mono}>forceDynamic()</span> — prevent a page from ever being static, even if it uses no dynamic APIs.</li>
+      </ul>
+      <CodeBlock language="php" title="route.php">
+        {`<?php
+use RamonMalcolm\\LaraBun\\Rsc\\PageRoute;
+
+// Force static — php() results baked in at prerender time
+return PageRoute::make()->forceStatic();
+
+// Force dynamic — always render per request
+return PageRoute::make()->forceDynamic();`}
+      </CodeBlock>
 
       <h2 style={s.h2}>Making Dynamic Pages Static</h2>
       <p style={s.p}>
@@ -79,7 +118,7 @@ return PageRoute::make()
         {`php artisan rsc:prerender`}
       </CodeBlock>
       <p style={s.p}>
-        This discovers all static routes (auto-detected + <span style={s.mono}>staticPaths</span>), starts a temporary Bun worker if needed, renders each page, and writes the output to <span style={s.mono}>storage/framework/rsc-static/</span>.
+        This starts a Bun worker, renders each page, and writes static files to <span style={s.mono}>storage/framework/rsc-static/</span>. Pages that call dynamic APIs during render are automatically skipped.
       </p>
       <CodeBlock language="bash">
         {`# Clean existing files before regenerating
@@ -203,11 +242,11 @@ RUN APP_KEY=base64:dummy-key-for-build-only php artisan rsc:prerender
           </thead>
           <tbody>
             {[
-              ['Detection', 'Auto (no [param]) or staticPaths()', 'Has [param] without staticPaths()'],
-              ['Config', 'None required (auto) or route.php', 'route.php optional'],
+              ['Detection', 'Runtime — no dynamic APIs used', 'Uses php(), fetch(), Date, Math.random, etc.'],
+              ['Config', 'None required (auto) or forceStatic()', 'Auto or forceDynamic()'],
               ['Middleware', 'ServeStaticRsc auto-applied', 'Full web stack'],
               ['Session / CSRF', 'No', 'Yes'],
-              ['Rendered', 'At build time', 'Per request'],
+              ['Rendered', 'At prerender time', 'Per request'],
               ['Suspense', 'Fully resolved', 'Streamed progressively'],
             ].map(([label, stat, dyn]) => (
               <tr key={label} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>

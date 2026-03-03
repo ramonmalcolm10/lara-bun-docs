@@ -90,12 +90,28 @@ return PageRoute::make()
     ->viewData(fn (string $slug) => ['title' => "Docs: $slug"]);`}
       </CodeBlock>
       <p style={s.p}>
-        Available methods: <span style={s.mono}>middleware()</span>, <span style={s.mono}>can()</span>, <span style={s.mono}>staticPaths()</span>, <span style={s.mono}>viewData()</span>, <span style={s.mono}>name()</span>, <span style={s.mono}>where()</span>, <span style={s.mono}>domain()</span>, <span style={s.mono}>dynamic()</span>.
+        Available methods: <span style={s.mono}>middleware()</span>, <span style={s.mono}>can()</span>, <span style={s.mono}>staticPaths()</span>, <span style={s.mono}>viewData()</span>, <span style={s.mono}>name()</span>, <span style={s.mono}>where()</span>, <span style={s.mono}>domain()</span>, <span style={s.mono}>forceDynamic()</span>, <span style={s.mono}>forceStatic()</span>.
       </p>
 
       <h2 style={s.h2}>Auto-Static Detection</h2>
       <p style={s.p}>
-        Pages <strong style={{ color: '#fafafa' }}>without</strong> dynamic segments (e.g., <span style={s.mono}>app/about/page.tsx</span>) are automatically static — the <span style={s.mono}>ServeStaticRsc</span> middleware is applied and <span style={s.mono}>rsc:prerender</span> picks them up with no extra config. Pages <strong style={{ color: '#fafafa' }}>with</strong> <span style={s.mono}>[param]</span> segments are dynamic by default; provide <span style={s.mono}>staticPaths()</span> in <span style={s.mono}>route.php</span> to make them prerenderable.
+        LaraBun detects dynamic pages <strong style={{ color: '#fafafa' }}>at prerender time</strong>, similar to Next.js. When <span style={s.mono}>rsc:prerender</span> runs, it renders each page and monitors for dynamic API usage. If any are called, the page is skipped and left as dynamic.
+      </p>
+      <p style={s.p}>
+        <strong style={{ color: '#fafafa' }}>Detected dynamic APIs:</strong>
+      </p>
+      <ul style={{ listStyle: 'none' }}>
+        <li style={s.li}>• <span style={s.mono}>php()</span> — any PHP callable (DB queries, cookies, headers, etc.)</li>
+        <li style={s.li}>• <span style={s.mono}>fetch()</span> — external HTTP requests</li>
+        <li style={s.li}>• <span style={s.mono}>new Date()</span> / <span style={s.mono}>Date.now()</span> — current time</li>
+        <li style={s.li}>• <span style={s.mono}>Math.random()</span> — non-deterministic output</li>
+        <li style={s.li}>• <span style={s.mono}>crypto.randomUUID()</span> / <span style={s.mono}>crypto.getRandomValues()</span> — non-deterministic output</li>
+      </ul>
+      <p style={s.p}>
+        Pages without dynamic segments that don't call any of these APIs are automatically static — <span style={s.mono}>ServeStaticRsc</span> middleware is applied and <span style={s.mono}>rsc:prerender</span> generates static files with no config needed.
+      </p>
+      <p style={s.p}>
+        Use <span style={s.mono}>forceStatic()</span> in <span style={s.mono}>route.php</span> to override detection and make a page static regardless (dynamic API results baked in at prerender time). Use <span style={s.mono}>forceDynamic()</span> for pages that should never be static (e.g., async Suspense demos).
       </p>
 
       <h2 style={s.h2}>Server Components</h2>

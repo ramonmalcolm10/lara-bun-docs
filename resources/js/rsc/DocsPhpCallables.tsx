@@ -28,10 +28,10 @@ export default function DocsPhpCallables() {
       <p style={s.p}>
         A callable is any PHP class with an <span style={s.mono}>__invoke()</span> method:
       </p>
-      <CodeBlock language="php" title="app/RSC/GetUser.php">
+      <CodeBlock language="php" title="app/Rsc/GetUser.php">
         {`<?php
 
-namespace App\\RSC;
+namespace App\\Rsc;
 
 use App\\Models\\User;
 
@@ -52,7 +52,7 @@ class GetUser
 
       <h2 style={s.h2}>Auto-Discovery</h2>
       <p style={s.p}>
-        Classes in <span style={s.mono}>app/RSC/</span> are auto-discovered by convention — no registration needed. The callable name matches the class name:
+        Classes in <span style={s.mono}>app/Rsc/</span> are auto-discovered by convention — no registration needed. The callable name matches the class name:
       </p>
       <div style={s.box}>
         <div style={{ fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace", fontSize: 13, lineHeight: 2, color: '#d4d4d8' }}>

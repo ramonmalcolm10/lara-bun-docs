@@ -71,10 +71,10 @@ export default function LandingPage() {
 }`}
           </CodeBlock>
 
-          <CodeBlock language="php" title="app/RSC/Posts.php">
+          <CodeBlock language="php" title="app/Rsc/Posts.php">
             {`<?php
 
-namespace App\\RSC;
+namespace App\\Rsc;
 
 use App\\Models\\Post;
 
