@@ -19,7 +19,7 @@
         "laravel/framework": "^12.0",
         "laravel/octane": "^2.14",
         "laravel/tinker": "^2.10.1",
-        "ramonmalcolm10/lara-bun": "dev-feature/rsc-support"
+        "ramonmalcolm10/lara-bun": "dev-feature/file-based-router"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

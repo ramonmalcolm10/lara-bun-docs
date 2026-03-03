@@ -52,15 +52,19 @@ export default function DocsInstallation() {
         {`bun add react react-dom react-server-dom-webpack`}
       </CodeBlock>
       <p style={s.p}>
-        Then add the build script to your <span style={s.mono}>package.json</span>:
+        Then add the build scripts to your <span style={s.mono}>package.json</span>:
       </p>
       <CodeBlock language="json" title="package.json">
         {`{
   "scripts": {
-    "build:rsc": "bun vendor/ramonmalcolm10/lara-bun/resources/build-rsc.ts"
+    "build:rsc": "bun vendor/ramonmalcolm10/lara-bun/resources/build-rsc.ts",
+    "dev:rsc": "bun --watch vendor/ramonmalcolm10/lara-bun/resources/build-rsc.ts"
   }
 }`}
       </CodeBlock>
+      <p style={s.p}>
+        Use <span style={s.mono}>bun run dev:rsc</span> during development — it watches for file changes and rebuilds automatically. Use <span style={s.mono}>bun run build:rsc</span> for production builds.
+      </p>
 
       <h2 style={s.h2}>4. Environment Configuration</h2>
       <p style={s.p}>
@@ -74,19 +78,28 @@ BUN_BRIDGE_SOCKET=/tmp/my-app-bridge.sock`}
         For Inertia SSR mode (without RSC), use <span style={s.mono}>BUN_SSR_ENABLED=true</span> instead.
       </p>
 
-      <h2 style={s.h2}>5. Create Your First Component</h2>
+      <h2 style={s.h2}>5. Create Your First Page</h2>
       <p style={s.p}>
-        Create a React Server Component in <span style={s.mono}>resources/js/rsc/</span>:
+        LaraBun uses file-based routing. Create an <span style={s.mono}>app/</span> directory inside <span style={s.mono}>resources/js/rsc/</span> with a root layout and a page:
       </p>
-      <CodeBlock language="tsx" title="resources/js/rsc/Dashboard.tsx">
-        {`export default function Dashboard({ user }: { user: string }) {
+      <CodeBlock language="tsx" title="resources/js/rsc/app/layout.tsx">
+        {`export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <h1>Welcome, {user}</h1>
+      <nav>My App</nav>
+      <main>{children}</main>
     </div>
   );
 }`}
       </CodeBlock>
+      <CodeBlock language="tsx" title="resources/js/rsc/app/page.tsx">
+        {`export default function Home() {
+  return <h1>Welcome to LaraBun</h1>;
+}`}
+      </CodeBlock>
+      <p style={s.p}>
+        That's it — <span style={s.mono}>app/page.tsx</span> maps to <span style={s.mono}>GET /</span> and is automatically wrapped by <span style={s.mono}>app/layout.tsx</span>. See <Link href="/docs/rsc" style={s.accent}>File-Based Routing</Link> for the full convention.
+      </p>
 
       <h2 style={s.h2}>6. Build and Serve</h2>
       <CodeBlock language="bash">

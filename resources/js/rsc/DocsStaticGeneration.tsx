@@ -34,51 +34,44 @@ export default function DocsStaticGeneration() {
         When a request arrives, the <span style={s.mono}>ServeStaticRsc</span> middleware checks for a pre-rendered file. If found, it serves the file directly. If not, the request falls through to the normal RSC pipeline.
       </p>
 
-      <h2 style={s.h2}>1. Define Static Routes</h2>
+      <h2 style={s.h2}>Auto-Static Detection</h2>
       <p style={s.p}>
-        Static routes live in a separate route file — <span style={s.mono}>routes/rsc-static.php</span>. The package auto-loads this file and wraps it with the <span style={s.mono}>ServeStaticRsc</span> middleware. No manual middleware configuration is needed.
+        With file-based routing, pages are <strong style={{ color: '#fafafa' }}>automatically classified</strong> as static or dynamic based on their path:
       </p>
-      <CodeBlock language="php" title="routes/rsc-static.php">
+      <ul style={{ listStyle: 'none' }}>
+        <li style={s.li}>• Pages <strong style={{ color: '#fafafa' }}>without</strong> dynamic segments (e.g. <span style={s.mono}>app/about/page.tsx</span>) → <strong style={{ color: '#4ade80' }}>automatically static</strong></li>
+        <li style={s.li}>• Pages <strong style={{ color: '#fafafa' }}>with</strong> <span style={s.mono}>[param]</span> segments (e.g. <span style={s.mono}>app/docs/[slug]/page.tsx</span>) → <strong style={{ color: '#f59e0b' }}>dynamic by default</strong></li>
+      </ul>
+      <p style={s.p}>
+        Static pages get the <span style={s.mono}>ServeStaticRsc</span> middleware auto-applied and are picked up by <span style={s.mono}>rsc:prerender</span> with no extra config. Any <span style={s.mono}>php()</span> calls in static pages execute at prerender time — data is baked into the static HTML.
+      </p>
+
+      <h2 style={s.h2}>Making Dynamic Pages Static</h2>
+      <p style={s.p}>
+        To make a page with <span style={s.mono}>[param]</span> segments prerenderable, provide <span style={s.mono}>staticPaths()</span> in the page's <span style={s.mono}>route.php</span>:
+      </p>
+      <CodeBlock language="php" title="app/docs/[slug]/route.php">
         {`<?php
+use RamonMalcolm\\LaraBun\\Rsc\\PageRoute;
 
-use App\\Http\\Controllers\\DocsController;
-use Illuminate\\Support\\Facades\\Route;
-
-// Simple static route
-Route::get('/', [DocsController::class, 'landing']);
-
-// Parameterized route — list all values to pre-render
-Route::get('/docs/{slug}', [DocsController::class, 'show'])
-    ->staticPaths([
-        'installation',
-        'configuration',
-        'how-it-works',
-    ]);`}
+return PageRoute::make()
+    ->staticPaths(fn () => Post::pluck('slug')->all());`}
       </CodeBlock>
       <p style={s.p}>
-        Routes in this file are <strong style={{ color: '#fafafa' }}>not</strong> in the <span style={s.mono}>web</span> middleware group. They skip session, CSRF, and cookie handling entirely. For routes that need those features (e.g. dynamic pages with auth), keep them in <span style={s.mono}>routes/web.php</span>.
+        For multi-parameter routes, return an array of associative arrays:
       </p>
+      <CodeBlock language="php" title="app/blog/[year]/[slug]/route.php">
+        {`<?php
+use RamonMalcolm\\LaraBun\\Rsc\\PageRoute;
 
-      <h2 style={s.h2}>2. The staticPaths Macro</h2>
-      <p style={s.p}>
-        For routes with parameters, <span style={s.mono}>staticPaths()</span> tells the pre-renderer which values to generate. Pass a flat array for single-parameter routes:
-      </p>
-      <CodeBlock language="php">
-        {`Route::get('/blog/{slug}', [BlogController::class, 'show'])
-    ->staticPaths(['hello-world', 'getting-started', 'tips-and-tricks']);`}
-      </CodeBlock>
-      <p style={s.p}>
-        For multi-parameter routes, pass an array of associative arrays:
-      </p>
-      <CodeBlock language="php">
-        {`Route::get('/blog/{year}/{slug}', [BlogController::class, 'show'])
-    ->staticPaths([
+return PageRoute::make()
+    ->staticPaths(fn () => [
         ['year' => '2025', 'slug' => 'hello-world'],
         ['year' => '2025', 'slug' => 'getting-started'],
     ]);`}
       </CodeBlock>
 
-      <h2 style={s.h2}>3. Pre-render Pages</h2>
+      <h2 style={s.h2}>Pre-render Pages</h2>
       <p style={s.p}>
         Run the <span style={s.mono}>rsc:prerender</span> command to generate static files:
       </p>
@@ -86,7 +79,7 @@ Route::get('/docs/{slug}', [DocsController::class, 'show'])
         {`php artisan rsc:prerender`}
       </CodeBlock>
       <p style={s.p}>
-        This discovers all routes with the <span style={s.mono}>ServeStaticRsc</span> middleware, starts a temporary Bun worker (if one isn't already running), renders each page, and writes the output to <span style={s.mono}>storage/framework/rsc-static/</span>.
+        This discovers all static routes (auto-detected + <span style={s.mono}>staticPaths</span>), starts a temporary Bun worker if needed, renders each page, and writes the output to <span style={s.mono}>storage/framework/rsc-static/</span>.
       </p>
       <CodeBlock language="bash">
         {`# Clean existing files before regenerating
@@ -112,9 +105,9 @@ php artisan rsc:prerender --clean`}
         </div>
       </div>
 
-      <h2 style={s.h2}>4. Customizing the HTML Shell</h2>
+      <h2 style={s.h2}>Customizing the HTML Shell</h2>
       <p style={s.p}>
-        Pre-rendered HTML is rendered through the same <span style={s.mono}>rsc-app.blade.php</span> view used for dynamic pages. Publish it to customize fonts, meta tags, and global styles:
+        Pre-rendered HTML uses the same <span style={s.mono}>rsc-app.blade.php</span> view as dynamic pages. Publish it to customize fonts, meta tags, and styles:
       </p>
       <CodeBlock language="bash">
         {`php artisan vendor:publish --tag=lara-bun-views`}
@@ -146,18 +139,21 @@ php artisan rsc:prerender --clean`}
 
       <h3 style={s.h3}>Page Metadata</h3>
       <p style={s.p}>
-        Pass per-page metadata (title, description, Open Graph, etc.) using <span style={s.mono}>withViewData()</span> on your <span style={s.mono}>RscResponse</span>. These values are available as Blade variables in the shell:
+        Pass per-page metadata (title, description, Open Graph) using <span style={s.mono}>viewData()</span> in your <span style={s.mono}>route.php</span>. These values are available as Blade variables in the shell:
       </p>
-      <CodeBlock language="php">
-        {`Route::get('/docs/{slug}', function (string $slug) {
-    return rsc('Docs' . str($slug)->studly())
-        ->layout('DocsLayout')
-        ->withViewData('title', 'Installation — My App')
-        ->withViewData('description', 'How to install and configure the app');
-});`}
+      <CodeBlock language="php" title="app/docs/[slug]/route.php">
+        {`<?php
+use RamonMalcolm\\LaraBun\\Rsc\\PageRoute;
+
+return PageRoute::make()
+    ->staticPaths(fn () => Post::pluck('slug')->all())
+    ->viewData(fn (string $slug) => [
+        'title' => "Docs: $slug — My App",
+        'description' => "Documentation for $slug",
+    ]);`}
       </CodeBlock>
       <p style={s.p}>
-        Any variable passed via <span style={s.mono}>withViewData()</span> is available in the Blade view. Use Blade defaults (<span style={s.mono}>{'{{ $title ?? \'Fallback\' }}'}</span>) for optional metadata. This works identically for both streamed and pre-rendered pages.
+        Any variable passed via <span style={s.mono}>viewData()</span> is available in the Blade view. Use Blade defaults (<span style={s.mono}>{'{{ $title ?? \'Fallback\' }}'}</span>) for optional metadata. This works identically for both streamed and pre-rendered pages.
       </p>
 
       <div style={{
@@ -173,7 +169,7 @@ php artisan rsc:prerender --clean`}
         </p>
       </div>
 
-      <h2 style={s.h2}>5. Docker Integration</h2>
+      <h2 style={s.h2}>Docker Integration</h2>
       <p style={s.p}>
         Pre-render during the Docker build so static files are baked into the image:
       </p>
@@ -191,17 +187,6 @@ RUN APP_KEY=base64:dummy-key-for-build-only php artisan rsc:prerender
         Keep <span style={s.mono}>php artisan optimize</span> in your entrypoint script where runtime environment variables are available — not in the Dockerfile build step.
       </p>
 
-      <h2 style={s.h2}>Configuration</h2>
-      <p style={s.p}>
-        Customize the static files output path in <span style={s.mono}>config/bun.php</span>:
-      </p>
-      <CodeBlock language="php" title="config/bun.php">
-        {`'rsc' => [
-    // ...
-    'static_path' => env('BUN_RSC_STATIC_PATH', storage_path('framework/rsc-static')),
-],`}
-      </CodeBlock>
-
       <h2 style={s.h2}>Static vs Dynamic</h2>
       <div style={s.box}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
@@ -214,8 +199,9 @@ RUN APP_KEY=base64:dummy-key-for-build-only php artisan rsc:prerender
           </thead>
           <tbody>
             {[
-              ['Route file', 'routes/rsc-static.php', 'routes/web.php'],
-              ['Middleware', 'ServeStaticRsc only', 'Full web stack'],
+              ['Detection', 'Auto (no [param]) or staticPaths()', 'Has [param] without staticPaths()'],
+              ['Config', 'None required (auto) or route.php', 'route.php optional'],
+              ['Middleware', 'ServeStaticRsc auto-applied', 'Full web stack'],
               ['Session / CSRF', 'No', 'Yes'],
               ['Rendered', 'At build time', 'Per request'],
               ['Suspense', 'Fully resolved', 'Streamed progressively'],

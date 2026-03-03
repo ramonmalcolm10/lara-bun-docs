@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "faec227c3eab753bc2f8cb8ef0498005",
+    "content-hash": "f8e5ae7ef47986ab680bdbd56703874b",
     "packages": [
         {
             "name": "brick/math",
@@ -3320,16 +3320,16 @@
         },
         {
             "name": "ramonmalcolm10/lara-bun",
-            "version": "dev-feature/rsc-support",
+            "version": "dev-feature/file-based-router",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramonmalcolm10/lara-bun.git",
-                "reference": "299c5bc904f64b6310011d11efe70f299b1bbcd7"
+                "reference": "41608c28e8170ea3cba8706348ef100b4bdac242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramonmalcolm10/lara-bun/zipball/299c5bc904f64b6310011d11efe70f299b1bbcd7",
-                "reference": "299c5bc904f64b6310011d11efe70f299b1bbcd7",
+                "url": "https://api.github.com/repos/ramonmalcolm10/lara-bun/zipball/41608c28e8170ea3cba8706348ef100b4bdac242",
+                "reference": "41608c28e8170ea3cba8706348ef100b4bdac242",
                 "shasum": ""
             },
             "require": {
@@ -3380,10 +3380,10 @@
                 "unix-socket"
             ],
             "support": {
-                "source": "https://github.com/ramonmalcolm10/lara-bun/tree/feature/rsc-support",
+                "source": "https://github.com/ramonmalcolm10/lara-bun/tree/feature/file-based-router",
                 "issues": "https://github.com/ramonmalcolm10/lara-bun/issues"
             },
-            "time": "2026-02-28T17:39:40+00:00"
+            "time": "2026-03-03T01:32:29+00:00"
         },
         {
             "name": "ramsey/collection",

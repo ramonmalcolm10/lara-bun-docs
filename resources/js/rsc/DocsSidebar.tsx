@@ -26,7 +26,7 @@ const sections: NavSection[] = [
     title: 'Features',
     items: [
       { label: 'Inertia SSR', slug: 'inertia-ssr' },
-      { label: 'React Server Components', slug: 'rsc' },
+      { label: 'RSC & File-Based Routing', slug: 'rsc' },
       { label: 'PHP Callables', slug: 'php-callables' },
       { label: 'Server Actions', slug: 'server-actions' },
     ],

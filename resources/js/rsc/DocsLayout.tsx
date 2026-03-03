@@ -1,11 +1,9 @@
-import NavBar from './NavBar';
 import DocsSidebar from './DocsSidebar';
 import MobileMenu from './MobileMenu';
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <NavBar />
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
       <MobileMenu />
       <div style={{
         display: 'flex',

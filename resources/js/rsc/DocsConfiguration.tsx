@@ -50,10 +50,6 @@ export default function DocsConfiguration() {
         'callables'     => [],
         'callables_dir' => null,
         'callback_timeout' => 5,
-
-        // Server Actions
-        'actions'     => [],
-        'actions_dir' => null,
     ],
 
     'entry_points' => [],
@@ -99,6 +95,11 @@ export default function DocsConfiguration() {
         </tbody>
       </table>
 
+      <h2 style={s.h2}>File-Based Routing</h2>
+      <p style={s.p}>
+        When RSC is enabled and an <span style={s.mono}>app/</span> directory exists inside <span style={s.mono}>source_dir</span>, the file-based router auto-activates. Pages are discovered from <span style={s.mono}>page.tsx</span> files and layouts from <span style={s.mono}>layout.tsx</span> files. See <Link href="/docs/rsc" style={s.accent}>RSC & File-Based Routing</Link> for the full convention.
+      </p>
+
       <h2 style={s.h2}>Callables</h2>
       <p style={s.p}>
         Register PHP classes that React server components can invoke via the <span style={s.mono}>php()</span> function. See the <Link href="/docs/php-callables" style={s.accent}>PHP Callables</Link> guide for details.
@@ -115,6 +116,11 @@ export default function DocsConfiguration() {
       <h2 style={s.h2}>Callback Timeout</h2>
       <p style={s.p}>
         The <span style={s.mono}>callback_timeout</span> sets how many seconds Bun will wait for PHP to respond to a callable invocation. Defaults to 5 seconds.
+      </p>
+
+      <h2 style={s.h2}>Server Actions</h2>
+      <p style={s.p}>
+        Server actions are auto-discovered from <span style={s.mono}>app/RSC/Actions/</span> by convention. Place your action classes there and run <span style={s.mono}>php artisan rsc:action-manifest</span> to generate the manifest. See <Link href="/docs/server-actions" style={s.accent}>Server Actions</Link> for details.
       </p>
 
       <hr style={s.hr} />
