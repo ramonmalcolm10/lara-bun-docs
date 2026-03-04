@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? 'LaraBun' }}</title>
     <meta name="description" content="{{ $description ?? 'LaraBun bridges Laravel and Bun for React Server Components, Inertia SSR, streaming, and server actions.' }}">
+    <meta property="og:title" content="{{ $title ?? 'LaraBun' }}">
+    <meta property="og:description" content="{{ $description ?? 'LaraBun bridges Laravel and Bun for React Server Components, Inertia SSR, streaming, and server actions.' }}">
+    <meta property="og:image" content="{{ asset('og-image.png') }}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title ?? 'LaraBun' }}">
+    <meta name="twitter:description" content="{{ $description ?? 'LaraBun bridges Laravel and Bun for React Server Components, Inertia SSR, streaming, and server actions.' }}">
+    <meta name="twitter:image" content="{{ asset('og-image.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" onload="this.rel='stylesheet'">

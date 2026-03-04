@@ -1,0 +1,143 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09090b"/>
+      <stop offset="100%" stop-color="#18181b"/>
+    </linearGradient>
+    <linearGradient id="accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="50%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="glow-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(167,139,250,0.15)"/>
+      <stop offset="100%" stop-color="rgba(167,139,250,0)"/>
+    </linearGradient>
+    <linearGradient id="glow-cyan" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(34,211,238,0.12)"/>
+      <stop offset="100%" stop-color="rgba(34,211,238,0)"/>
+    </linearGradient>
+    <filter id="blur-glow">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Ambient glow blobs -->
+  <ellipse cx="200" cy="180" rx="300" ry="250" fill="rgba(167,139,250,0.06)" filter="url(#blur-glow)"/>
+  <ellipse cx="1000" cy="450" rx="300" ry="250" fill="rgba(34,211,238,0.05)" filter="url(#blur-glow)"/>
+  <ellipse cx="600" cy="350" rx="200" ry="200" fill="rgba(251,191,36,0.04)" filter="url(#blur-glow)"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#accent-line)"/>
+
+  <!-- Architecture chips -->
+  <!-- PHP chip -->
+  <rect x="80" y="160" width="90" height="32" rx="6" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.3)" stroke-width="1"/>
+  <text x="125" y="181" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" font-weight="500" fill="#a78bfa" text-anchor="middle">PHP</text>
+
+  <!-- Arrow -->
+  <line x1="180" y1="176" x2="220" y2="176" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Socket chip -->
+  <rect x="230" y="160" width="120" height="32" rx="6" fill="rgba(251,191,36,0.1)" stroke="rgba(251,191,36,0.3)" stroke-width="1"/>
+  <text x="290" y="181" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" font-weight="500" fill="#fbbf24" text-anchor="middle">Unix Socket</text>
+
+  <!-- Arrow -->
+  <line x1="360" y1="176" x2="400" y2="176" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Bun chip -->
+  <rect x="410" y="160" width="90" height="32" rx="6" fill="rgba(34,211,238,0.1)" stroke="rgba(34,211,238,0.3)" stroke-width="1"/>
+  <text x="455" y="181" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" font-weight="500" fill="#22d3ee" text-anchor="middle">Bun</text>
+
+  <!-- Brand name -->
+  <text x="80" y="290" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="72" font-weight="800" fill="#fafafa" letter-spacing="-3">LaraBun</text>
+
+  <!-- Tagline -->
+  <text x="80" y="340" font-family="'Outfit', system-ui, sans-serif" font-size="22" font-weight="400" fill="#a1a1aa">React Server Components for Laravel,</text>
+  <text x="80" y="372" font-family="'Outfit', system-ui, sans-serif" font-size="22" font-weight="400" fill="#a1a1aa">powered by Bun.</text>
+
+  <!-- Feature pills -->
+  <rect x="80" y="420" width="56" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="108" y="439" font-family="'Outfit', system-ui, sans-serif" font-size="12" font-weight="500" fill="#71717a" text-anchor="middle">RSC</text>
+
+  <rect x="148" y="420" width="92" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="194" y="439" font-family="'Outfit', system-ui, sans-serif" font-size="12" font-weight="500" fill="#71717a" text-anchor="middle">Streaming</text>
+
+  <rect x="252" y="420" width="120" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="312" y="439" font-family="'Outfit', system-ui, sans-serif" font-size="12" font-weight="500" fill="#71717a" text-anchor="middle">Server Actions</text>
+
+  <rect x="384" y="420" width="56" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="412" y="439" font-family="'Outfit', system-ui, sans-serif" font-size="12" font-weight="500" fill="#71717a" text-anchor="middle">SSG</text>
+
+  <rect x="452" y="420" width="56" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="480" y="439" font-family="'Outfit', system-ui, sans-serif" font-size="12" font-weight="500" fill="#71717a" text-anchor="middle">SSR</text>
+
+  <!-- Code snippet panel (right side) -->
+  <rect x="680" y="140" width="440" height="350" rx="12" fill="#111113" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- Window dots -->
+  <circle cx="704" cy="164" r="5" fill="#ef4444" opacity="0.6"/>
+  <circle cx="722" cy="164" r="5" fill="#eab308" opacity="0.6"/>
+  <circle cx="740" cy="164" r="5" fill="#22c55e" opacity="0.6"/>
+
+  <!-- File tab -->
+  <text x="780" y="168" font-family="ui-monospace, 'Fira Code', monospace" font-size="11" fill="#71717a">page.tsx</text>
+
+  <!-- Code lines -->
+  <text x="704" y="210" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#c084fc">export default</text>
+  <text x="834" y="210" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#22d3ee"> async</text>
+  <text x="884" y="210" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#c084fc"> function</text>
+  <text x="968" y="210" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa"> Home() {</text>
+
+  <text x="704" y="240" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#71717a">  // Server-side data fetching</text>
+
+  <text x="704" y="270" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#c084fc">  const</text>
+  <text x="752" y="270" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa"> posts =</text>
+  <text x="830" y="270" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#22d3ee"> await</text>
+  <text x="878" y="270" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fbbf24"> php</text>
+  <text x="904" y="270" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">(</text>
+  <text x="912" y="270" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#a5d6a7">'Post.latest'</text>
+  <text x="1028" y="270" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">);</text>
+
+  <text x="704" y="310" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#c084fc">  return</text>
+  <text x="758" y="310" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa"> (</text>
+
+  <text x="704" y="340" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">    &lt;</text>
+  <text x="718" y="340" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#22d3ee">div</text>
+  <text x="742" y="340" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">&gt;</text>
+
+  <text x="704" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">      {posts.map(</text>
+  <text x="828" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#c084fc">p</text>
+  <text x="840" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#c084fc"> =&gt;</text>
+  <text x="864" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa"> &lt;</text>
+  <text x="878" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#22d3ee">p</text>
+  <text x="888" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">&gt;{p.title}&lt;/</text>
+  <text x="980" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#22d3ee">p</text>
+  <text x="990" y="370" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">&gt;)}</text>
+
+  <text x="704" y="400" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">    &lt;/</text>
+  <text x="738" y="400" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#22d3ee">div</text>
+  <text x="762" y="400" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">&gt;</text>
+
+  <text x="704" y="430" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">  );</text>
+  <text x="704" y="460" font-family="ui-monospace, 'Fira Code', monospace" font-size="13" fill="#fafafa">}</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="540" width="1200" height="90" fill="rgba(0,0,0,0.3)"/>
+  <line x1="0" y1="540" x2="1200" y2="540" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+  <!-- URL -->
+  <text x="80" y="592" font-family="ui-monospace, 'Fira Code', monospace" font-size="15" font-weight="400" fill="#71717a">github.com/larabun/lara-bun</text>
+
+  <!-- Install command -->
+  <text x="1120" y="592" font-family="ui-monospace, 'Fira Code', monospace" font-size="14" font-weight="400" fill="#71717a" text-anchor="end">composer require larabun/lara-bun</text>
+</svg>
