@@ -195,11 +195,15 @@ class RateLimitedActions
 
       <h2 style={s.h2}>Error Handling on the Client</h2>
       <p style={s.p}>
-        When an authorization check fails, the action endpoint returns the appropriate HTTP status code. You can handle these in your client components just like any other error:
+        <strong style={{ color: '#fafafa' }}>401 — Automatic redirect.</strong> When <span style={s.mono}>#[Authenticated]</span> fails, the client is automatically navigated to your <span style={s.mono}>login</span> named route. No client-side code needed.
+      </p>
+      <p style={s.p}>
+        <strong style={{ color: '#fafafa' }}>403 — Catchable error.</strong> When <span style={s.mono}>#[Can]</span> fails, a <span style={s.mono}>ServerAuthorizationError</span> is thrown on the client. Catch it to show a message:
       </p>
       <CodeBlock language="tsx">
         {`"use client";
 
+import { ServerAuthorizationError } from 'lara-bun/router';
 import { todoActionsDelete } from './server-actions.generated';
 
 export default function DeleteButton({ id }: { id: string }) {
@@ -207,11 +211,9 @@ export default function DeleteButton({ id }: { id: string }) {
     try {
       await todoActionsDelete(id);
     } catch (error) {
-      if (error instanceof Response && error.status === 401) {
-        // Redirect to login
-        window.location.href = '/login';
-      } else if (error instanceof Response && error.status === 403) {
-        alert('You do not have permission to delete this item.');
+      if (error instanceof ServerAuthorizationError) {
+        alert(error.message);
+        // error.message = "This action is unauthorized."
       }
     }
   }

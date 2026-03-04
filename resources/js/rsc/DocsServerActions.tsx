@@ -140,8 +140,97 @@ export async function deletePost(id: number) {
 
       <h2 style={s.h2}>Error Handling</h2>
       <p style={s.p}>
-        When a PHP callable throws a <span style={s.mono}>ValidationException</span>, LaraBun returns a <span style={s.mono}>422</span> response. The client receives a <span style={s.mono}>ServerValidationError</span> with structured error messages. See <Link href="/docs/validation" style={s.accent}>Validation</Link> for details.
+        Server actions return structured error responses instead of HTML error pages. LaraBun provides typed error classes you can catch on the client.
       </p>
+
+      <div style={s.box}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th style={{ textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: 13, fontWeight: 600, color: '#fafafa' }}>Scenario</th>
+              <th style={{ textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: 13, fontWeight: 600, color: '#fafafa' }}>Status</th>
+              <th style={{ textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: 13, fontWeight: 600, color: '#fafafa' }}>Client Behavior</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Unauthenticated</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#f59e0b', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>401</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Auto-redirects to login page</td>
+            </tr>
+            <tr>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Unauthorized</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#f59e0b', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>403</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Throws <span style={s.mono}>ServerAuthorizationError</span></td>
+            </tr>
+            <tr>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Validation failed</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#f59e0b', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>422</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Throws <span style={s.mono}>ServerValidationError</span></td>
+            </tr>
+            <tr>
+              <td style={{ padding: '8px 12px', fontSize: 13, color: '#a1a1aa' }}>Redirect</td>
+              <td style={{ padding: '8px 12px', fontSize: 13, color: '#f59e0b', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>302</td>
+              <td style={{ padding: '8px 12px', fontSize: 13, color: '#a1a1aa' }}>SPA navigation (falls back to full page load)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style={s.p}>
+        <strong style={{ color: '#fafafa' }}>401 — Auto-redirect.</strong> When an <span style={s.mono}>AuthenticationException</span> is thrown (e.g. via <span style={s.mono}>#[Authenticated]</span>), the client automatically navigates to your <span style={s.mono}>login</span> route. No client-side handling needed.
+      </p>
+
+      <p style={s.p}>
+        <strong style={{ color: '#fafafa' }}>403 — Catchable error.</strong> When an <span style={s.mono}>AuthorizationException</span> is thrown (e.g. via <span style={s.mono}>#[Can]</span>), a <span style={s.mono}>ServerAuthorizationError</span> is thrown on the client. See <Link href="/docs/authorization" style={s.accent}>Authorization</Link> for details.
+      </p>
+
+      <p style={s.p}>
+        <strong style={{ color: '#fafafa' }}>422 — Validation errors.</strong> <span style={s.mono}>ValidationException</span> is surfaced as a <span style={s.mono}>ServerValidationError</span> with structured error messages. See <Link href="/docs/validation" style={s.accent}>Validation</Link> for details.
+      </p>
+
+      <h2 style={s.h2}>Redirects</h2>
+      <p style={s.p}>
+        Server actions can trigger SPA navigation after completing an operation. Throw a <span style={s.mono}>RscRedirectException</span> from your PHP action:
+      </p>
+      <CodeBlock language="php" title="app/Rsc/Actions/CreatePost.php">
+        {`<?php
+
+namespace App\\Rsc\\Actions;
+
+use App\\Models\\Post;
+use Illuminate\\Support\\Facades\\Auth;
+use LaraBun\\Rsc\\RscRedirectException;
+
+class CreatePost
+{
+    public function __invoke(string $title, string $body): never
+    {
+        $post = Post::create([
+            'user_id' => Auth::id(),
+            'title' => $title,
+            'body' => $body,
+        ]);
+
+        throw new RscRedirectException("/posts/{$post->id}");
+    }
+}`}
+      </CodeBlock>
+
+      <p style={s.p}>
+        The client navigates using the SPA router. If the target URL is an RSC page, navigation happens instantly without a full page reload. If it's a non-RSC page (Blade, Inertia, or external URL), it falls back to a standard page load automatically.
+      </p>
+
+      <div style={{
+        ...s.box,
+        borderColor: 'rgba(245,158,11,0.2)',
+        background: 'rgba(245,158,11,0.04)',
+      }}>
+        <p style={{ color: '#f59e0b', fontSize: 14, fontWeight: 500, marginBottom: 8 }}>Custom status codes</p>
+        <p style={{ color: '#a1a1aa', fontSize: 14, lineHeight: 1.7, marginBottom: 0 }}>
+          Pass a second argument for a custom HTTP status: <span style={s.mono}>{'new RscRedirectException(\'/posts\', 301)'}</span>. The default is <span style={s.mono}>302</span>.
+        </p>
+      </div>
 
       <hr style={s.hr} />
       <p style={s.p}>
