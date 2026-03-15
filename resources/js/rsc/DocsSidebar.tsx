@@ -40,6 +40,7 @@ const sections: NavSection[] = [
       { label: 'Page Metadata', slug: 'metadata' },
       { label: 'Static Generation', slug: 'static-generation' },
       { label: 'React Compiler', slug: 'react-compiler' },
+      { label: 'Typed Routes', slug: 'typed-routes' },
       { label: 'Deployment', slug: 'deployment' },
       { label: 'Suspense Demo', slug: 'suspense-demo' },
       { label: 'Action Demo', slug: 'action-demo' },

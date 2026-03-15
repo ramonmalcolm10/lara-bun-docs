@@ -17,6 +17,7 @@ return PageRoute::make()
         'metadata',
         'static-generation',
         'react-compiler',
+        'typed-routes',
         'deployment',
     ])
     ->viewData(fn (string $slug) => [
@@ -34,6 +35,7 @@ return PageRoute::make()
             'metadata' => 'Page Metadata — LaraBun Docs',
             'static-generation' => 'Static Generation — LaraBun Docs',
             'react-compiler' => 'React Compiler — LaraBun Docs',
+            'typed-routes' => 'Typed Routes — LaraBun Docs',
             'deployment' => 'Deployment — LaraBun Docs',
             default => 'LaraBun Docs',
         },

@@ -11,6 +11,7 @@ import DocsValidation from '../../../DocsValidation';
 import DocsMetadata from '../../../DocsMetadata';
 import DocsStaticGeneration from '../../../DocsStaticGeneration';
 import DocsReactCompiler from '../../../DocsReactCompiler';
+import DocsTypedRoutes from '../../../DocsTypedRoutes';
 import DocsDeployment from '../../../DocsDeployment';
 
 const pages: Record<string, React.ComponentType> = {
@@ -27,6 +28,7 @@ const pages: Record<string, React.ComponentType> = {
   'metadata': DocsMetadata,
   'static-generation': DocsStaticGeneration,
   'react-compiler': DocsReactCompiler,
+  'typed-routes': DocsTypedRoutes,
   'deployment': DocsDeployment,
 };
 
