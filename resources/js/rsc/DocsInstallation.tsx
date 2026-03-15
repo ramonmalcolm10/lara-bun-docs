@@ -49,7 +49,8 @@ export default function DocsInstallation() {
         If you're using RSC, add <span style={s.mono}>react-server-dom-webpack</span> to your project:
       </p>
       <CodeBlock language="bash">
-        {`bun add react react-dom react-server-dom-webpack`}
+        {`bun add react react-dom react-server-dom-webpack
+bun add -d @types/react @types/react-dom`}
       </CodeBlock>
       <p style={s.p}>
         Then add the build scripts to your <span style={s.mono}>package.json</span>:
@@ -57,13 +58,13 @@ export default function DocsInstallation() {
       <CodeBlock language="json" title="package.json">
         {`{
   "scripts": {
-    "build:rsc": "bun vendor/larabun/lara-bun/resources/build-rsc.ts",
-    "dev:rsc": "bun --watch vendor/larabun/lara-bun/resources/build-rsc.ts"
+    "build": "bun vendor/larabun/lara-bun/resources/build-rsc.ts",
+    "dev": "bun --watch vendor/larabun/lara-bun/resources/build-rsc.ts"
   }
 }`}
       </CodeBlock>
       <p style={s.p}>
-        Use <span style={s.mono}>bun run dev:rsc</span> during development — it watches for file changes and rebuilds automatically. Use <span style={s.mono}>bun run build:rsc</span> for production builds.
+        Use <span style={s.mono}>bun run dev</span> during development — it watches for file changes and rebuilds automatically. Use <span style={s.mono}>bun run build</span> for production builds.
       </p>
 
       <h2 style={s.h2}>4. Environment Configuration</h2>
@@ -104,7 +105,7 @@ BUN_BRIDGE_SOCKET=/tmp/my-app-bridge.sock`}
       <h2 style={s.h2}>6. Build and Serve</h2>
       <CodeBlock language="bash">
         {`# Build server + client bundles
-bun run build:rsc
+bun run build
 
 # Start the Bun worker
 php artisan bun:serve
@@ -116,7 +117,7 @@ php artisan bun:serve --watch`}
         The build step auto-discovers your components, generates manifests, and creates optimized bundles. The <span style={s.mono}>bun:serve</span> command starts the Bun worker that listens on the Unix socket.
       </p>
       <p style={s.p}>
-        The <span style={s.mono}>--watch</span> flag monitors your RSC build output and automatically restarts the worker when bundles change — no manual restart needed after each <span style={s.mono}>bun run build:rsc</span>.
+        The <span style={s.mono}>--watch</span> flag monitors your RSC build output and automatically restarts the worker when bundles change — no manual restart needed after each <span style={s.mono}>bun run build</span>.
       </p>
 
       <hr style={s.hr} />

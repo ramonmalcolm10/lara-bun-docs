@@ -218,7 +218,7 @@ return PageRoute::make()
       </p>
       <CodeBlock language="dockerfile" title="Dockerfile">
         {`# Build RSC bundles
-RUN bun run build:rsc
+RUN bun run build
 
 # Pre-render static pages (needs a dummy APP_KEY for config)
 RUN APP_KEY=base64:dummy-key-for-build-only php artisan rsc:prerender

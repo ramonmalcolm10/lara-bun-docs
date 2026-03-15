@@ -161,7 +161,7 @@ export async function deletePost(id: number) {
             <tr>
               <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Unauthorized</td>
               <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#f59e0b', fontFamily: "ui-monospace, 'Fira Code', monospace" }}>403</td>
-              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Throws <span style={s.mono}>ServerAuthorizationError</span></td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Renders error page via exception handler</td>
             </tr>
             <tr>
               <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#a1a1aa' }}>Validation failed</td>
@@ -187,7 +187,7 @@ export async function deletePost(id: number) {
       </p>
 
       <p style={s.p}>
-        <strong style={{ color: '#fafafa' }}>403 — Catchable error.</strong> When an <span style={s.mono}>AuthorizationException</span> is thrown (e.g. via <span style={s.mono}>#[Can]</span>), a <span style={s.mono}>ServerAuthorizationError</span> is thrown on the client. See <Link href="/docs/authorization" style={s.accent}>Authorization</Link> for details.
+        <strong style={{ color: '#fafafa' }}>403 — Error page.</strong> When an <span style={s.mono}>AuthorizationException</span> is thrown (e.g. via <span style={s.mono}>#[Can]</span>), it propagates to Laravel's exception handler. If you've configured an error page, it renders inline without a page reload. See <Link href="/docs/authorization" style={s.accent}>Authorization</Link> for details.
       </p>
 
       <p style={s.p}>

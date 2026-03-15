@@ -25,7 +25,7 @@ export default function DocsDeployment() {
       </p>
       <CodeBlock language="bash">
         {`# Build optimized server + client bundles
-bun run build:rsc
+bun run build
 
 # Verify the build output
 ls bootstrap/rsc/     # Server bundle + manifests
@@ -96,7 +96,7 @@ WORKDIR /var/www/app
 RUN curl -fsSL https://bun.sh/install | bash
 
 # Build RSC bundles
-RUN ~/.bun/bin/bun run build:rsc
+RUN ~/.bun/bin/bun run build
 
 # Start both PHP-FPM and Bun worker
 CMD ["sh", "-c", "php artisan bun:serve & php-fpm"]`}
@@ -132,7 +132,7 @@ git pull origin main
 composer install --no-dev --optimize-autoloader
 
 # Build RSC bundles
-bun run build:rsc
+bun run build
 
 # Laravel cache
 php artisan config:cache
@@ -157,7 +157,7 @@ $bridge->ping(); // Throws if worker is unreachable`}
       <div style={s.box}>
         <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
           {[
-            'Run bun run build:rsc before every deploy',
+            'Run bun run build before every deploy',
             'Set BUN_WORKERS to match available CPU cores',
             'Use Supervisor or systemd to keep the Bun worker alive',
             'Ensure socket path is writable by the web server user',

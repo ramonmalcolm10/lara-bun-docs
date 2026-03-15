@@ -14,5 +14,13 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->respond(function ($response, $exception, $request) {
+            if (in_array($response->getStatusCode(), [403, 404, 419, 500])) {
+                return rsc('Error', ['status' => $response->getStatusCode()])
+                    ->status($response->getStatusCode())
+                    ->toResponse($request);
+            }
+
+            return $response;
+        });
     })->create();

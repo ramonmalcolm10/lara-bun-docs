@@ -40,7 +40,7 @@ export default function DocsConfiguration() {
 
     // React Server Components settings
     'rsc' => [
-        'enabled' => env('BUN_RSC_ENABLED', false),
+        'enabled' => env('BUN_RSC_ENABLED', true),
         'bundle'  => base_path('bootstrap/rsc/entry.rsc.js'),
         'source_dir'       => resource_path('js/rsc'),
         'client_build_dir' => public_path('build/rsc'),
@@ -96,7 +96,7 @@ php artisan bun:serve --watch
 php artisan bun:serve`}
       </CodeBlock>
       <p style={s.p}>
-        During development, pair <span style={s.mono}>--watch</span> with your build command in separate terminals. The worker detects when <span style={s.mono}>bun run build:rsc</span> finishes and automatically picks up the new bundles.
+        During development, pair <span style={s.mono}>--watch</span> with your build command in separate terminals. The worker detects when <span style={s.mono}>bun run build</span> finishes and automatically picks up the new bundles.
       </p>
 
       <h2 style={s.h2}>SSR vs RSC</h2>

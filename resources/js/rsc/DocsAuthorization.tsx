@@ -198,27 +198,37 @@ class RateLimitedActions
         <strong style={{ color: '#fafafa' }}>401 — Automatic redirect.</strong> When <span style={s.mono}>#[Authenticated]</span> fails, the client is automatically navigated to your <span style={s.mono}>login</span> named route. No client-side code needed.
       </p>
       <p style={s.p}>
-        <strong style={{ color: '#fafafa' }}>403 — Catchable error.</strong> When <span style={s.mono}>#[Can]</span> fails, a <span style={s.mono}>ServerAuthorizationError</span> is thrown on the client. Catch it to show a message:
+        <strong style={{ color: '#fafafa' }}>403 — Error page.</strong> When <span style={s.mono}>#[Can]</span> fails, the <span style={s.mono}>AuthorizationException</span> propagates to Laravel's exception handler. Configure it in <span style={s.mono}>bootstrap/app.php</span> to render an RSC error page:
       </p>
-      <CodeBlock language="tsx">
-        {`"use client";
-
-import { ServerAuthorizationError } from 'lara-bun/router';
-import { todoActionsDelete } from './server-actions.generated';
-
-export default function DeleteButton({ id }: { id: string }) {
-  async function handleDelete() {
-    try {
-      await todoActionsDelete(id);
-    } catch (error) {
-      if (error instanceof ServerAuthorizationError) {
-        alert(error.message);
-        // error.message = "This action is unauthorized."
-      }
+      <CodeBlock language="php" title="bootstrap/app.php">
+        {`$exceptions->respond(function ($response, $exception, $request) {
+    if (in_array($response->getStatusCode(), [403, 404, 419, 500])) {
+        return rsc('Error', ['status' => $response->getStatusCode()])
+            ->status($response->getStatusCode())
+            ->toResponse($request);
     }
-  }
 
-  return <button onClick={handleDelete}>Delete</button>;
+    return $response;
+});`}
+      </CodeBlock>
+      <p style={s.p}>
+        The error page renders inline during SPA navigation — no full page reload. Create an <span style={s.mono}>Error</span> component that receives a <span style={s.mono}>status</span> prop:
+      </p>
+      <CodeBlock language="tsx" title="resources/js/rsc/Error.tsx">
+        {`export default function Error({ status }: { status: number }) {
+  const titles: Record<number, string> = {
+    403: 'Forbidden',
+    404: 'Not Found',
+    419: 'Session Expired',
+    500: 'Server Error',
+  };
+
+  return (
+    <div>
+      <h1>{status}</h1>
+      <p>{titles[status] ?? 'Error'}</p>
+    </div>
+  );
 }`}
       </CodeBlock>
 
