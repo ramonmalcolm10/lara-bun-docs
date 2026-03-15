@@ -1146,12 +1146,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/larabun/lara-bun.git",
-                "reference": "deb64ca569fba91b627fb739a9e65a79fcc3bfee"
+                "reference": "4d5aed98f42af189d9c47b8bb9615cbc1f9e2bba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/deb64ca569fba91b627fb739a9e65a79fcc3bfee",
-                "reference": "deb64ca569fba91b627fb739a9e65a79fcc3bfee",
+                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/4d5aed98f42af189d9c47b8bb9615cbc1f9e2bba",
+                "reference": "4d5aed98f42af189d9c47b8bb9615cbc1f9e2bba",
                 "shasum": ""
             },
             "require": {
@@ -1222,7 +1222,7 @@
                 "source": "https://github.com/larabun/lara-bun/tree/feature/file-based-router",
                 "issues": "https://github.com/larabun/lara-bun/issues"
             },
-            "time": "2026-03-15T12:37:50+00:00"
+            "time": "2026-03-15T12:48:08+00:00"
         },
         {
             "name": "laravel/framework",
