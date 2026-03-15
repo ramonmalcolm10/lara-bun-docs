@@ -38,6 +38,7 @@ const sections: NavSection[] = [
     items: [
       { label: 'Validation', slug: 'validation' },
       { label: 'Static Generation', slug: 'static-generation' },
+      { label: 'React Compiler', slug: 'react-compiler' },
       { label: 'Deployment', slug: 'deployment' },
       { label: 'Suspense Demo', slug: 'suspense-demo' },
       { label: 'Action Demo', slug: 'action-demo' },

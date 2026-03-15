@@ -9,6 +9,7 @@ import DocsFileUploads from '../../../DocsFileUploads';
 import DocsAuthorization from '../../../DocsAuthorization';
 import DocsValidation from '../../../DocsValidation';
 import DocsStaticGeneration from '../../../DocsStaticGeneration';
+import DocsReactCompiler from '../../../DocsReactCompiler';
 import DocsDeployment from '../../../DocsDeployment';
 
 const pages: Record<string, React.ComponentType> = {
@@ -23,6 +24,7 @@ const pages: Record<string, React.ComponentType> = {
   'authorization': DocsAuthorization,
   'validation': DocsValidation,
   'static-generation': DocsStaticGeneration,
+  'react-compiler': DocsReactCompiler,
   'deployment': DocsDeployment,
 };
 

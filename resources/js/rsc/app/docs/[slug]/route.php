@@ -15,6 +15,7 @@ return PageRoute::make()
         'authorization',
         'validation',
         'static-generation',
+        'react-compiler',
         'deployment',
     ])
     ->viewData(fn (string $slug) => [
@@ -30,6 +31,7 @@ return PageRoute::make()
             'authorization' => 'Authorization — LaraBun Docs',
             'validation' => 'Validation — LaraBun Docs',
             'static-generation' => 'Static Generation — LaraBun Docs',
+            'react-compiler' => 'React Compiler — LaraBun Docs',
             'deployment' => 'Deployment — LaraBun Docs',
             default => 'LaraBun Docs',
         },
