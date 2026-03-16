@@ -9,6 +9,7 @@ import DocsFileUploads from '../../../DocsFileUploads';
 import DocsAuthorization from '../../../DocsAuthorization';
 import DocsValidation from '../../../DocsValidation';
 import DocsMetadata from '../../../DocsMetadata';
+import DocsPpr from '../../../DocsPpr';
 import DocsStaticGeneration from '../../../DocsStaticGeneration';
 import DocsReactCompiler from '../../../DocsReactCompiler';
 import DocsTypedRoutes from '../../../DocsTypedRoutes';
@@ -26,6 +27,7 @@ const pages: Record<string, React.ComponentType> = {
   'authorization': DocsAuthorization,
   'validation': DocsValidation,
   'metadata': DocsMetadata,
+  'ppr': DocsPpr,
   'static-generation': DocsStaticGeneration,
   'react-compiler': DocsReactCompiler,
   'typed-routes': DocsTypedRoutes,

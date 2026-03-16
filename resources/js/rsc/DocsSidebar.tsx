@@ -38,6 +38,7 @@ const sections: NavSection[] = [
     items: [
       { label: 'Validation', slug: 'validation' },
       { label: 'Page Metadata', slug: 'metadata' },
+      { label: 'Partial Prerendering', slug: 'ppr' },
       { label: 'Static Generation', slug: 'static-generation' },
       { label: 'React Compiler', slug: 'react-compiler' },
       { label: 'Typed Routes', slug: 'typed-routes' },

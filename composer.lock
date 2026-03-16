@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea258a3a85403e3353da88ae79c3f10e",
+    "content-hash": "c5dbf645a66542966b6e6f0b278c9fc2",
     "packages": [
         {
             "name": "brick/math",
@@ -1142,16 +1142,16 @@
         },
         {
             "name": "larabun/lara-bun",
-            "version": "dev-feature/file-based-router",
+            "version": "dev-feature/ppr",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larabun/lara-bun.git",
-                "reference": "4a3d0b4e0ec6c5b3b82729e599943fb2d2e3ae11"
+                "reference": "b408691e8d5c303157a489b7b42747426fd4cebd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/4a3d0b4e0ec6c5b3b82729e599943fb2d2e3ae11",
-                "reference": "4a3d0b4e0ec6c5b3b82729e599943fb2d2e3ae11",
+                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/b408691e8d5c303157a489b7b42747426fd4cebd",
+                "reference": "b408691e8d5c303157a489b7b42747426fd4cebd",
                 "shasum": ""
             },
             "require": {
@@ -1219,10 +1219,10 @@
                 "unix-socket"
             ],
             "support": {
-                "source": "https://github.com/larabun/lara-bun/tree/feature/file-based-router",
+                "source": "https://github.com/larabun/lara-bun/tree/feature/ppr",
                 "issues": "https://github.com/larabun/lara-bun/issues"
             },
-            "time": "2026-03-15T13:24:34+00:00"
+            "time": "2026-03-16T07:37:38+00:00"
         },
         {
             "name": "laravel/framework",
