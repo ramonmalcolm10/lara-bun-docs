@@ -1146,12 +1146,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/larabun/lara-bun.git",
-                "reference": "b86aa470112ce2aa840a7ed735db9779279f53af"
+                "reference": "49d5f37ef9f579607a6ed03bf282aa815514a8f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/b86aa470112ce2aa840a7ed735db9779279f53af",
-                "reference": "b86aa470112ce2aa840a7ed735db9779279f53af",
+                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/49d5f37ef9f579607a6ed03bf282aa815514a8f7",
+                "reference": "49d5f37ef9f579607a6ed03bf282aa815514a8f7",
                 "shasum": ""
             },
             "require": {
@@ -1222,7 +1222,7 @@
                 "source": "https://github.com/larabun/lara-bun/tree/feature/ppr",
                 "issues": "https://github.com/larabun/lara-bun/issues"
             },
-            "time": "2026-03-16T08:45:19+00:00"
+            "time": "2026-03-16T08:51:30+00:00"
         },
         {
             "name": "laravel/framework",
