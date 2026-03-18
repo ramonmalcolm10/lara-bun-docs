@@ -79,7 +79,7 @@ export default function PostPage({ id }: { id: string }) {
 
       <h2 style={s.h2}>Using loading.tsx</h2>
       <p style={s.p}>
-        Instead of wrapping every component in <span style={s.mono}>{`<Suspense>`}</span>, you can create a <span style={s.mono}>loading.tsx</span> file next to your <span style={s.mono}>page.tsx</span>. It acts as the Suspense fallback for the entire page:
+        Instead of wrapping every component in <span style={s.mono}>{`<Suspense>`}</span>, create a <span style={s.mono}>loading.tsx</span> file in the same directory as your <span style={s.mono}>page.tsx</span>. LaraBun automatically wraps the page in <span style={s.mono}>{`<Suspense fallback={<Loading />}>`}</span>:
       </p>
       <CodeBlock language="tsx" title="resources/js/rsc/app/posts/[id]/loading.tsx">
         {`export default function Loading() {
@@ -94,6 +94,47 @@ export default function PostPage({ id }: { id: string }) {
   );
 }`}
       </CodeBlock>
+      <p style={s.p}>
+        With <span style={s.mono}>loading.tsx</span>, your page component doesn't need any Suspense wrappers — just use <span style={s.mono}>await php()</span> normally:
+      </p>
+      <CodeBlock language="tsx" title="resources/js/rsc/app/posts/[id]/page.tsx">
+        {`export default async function PostPage({ id }: { id: string }) {
+  const post = await php('PostCallable.show', { id });
+  return <h1>{post.title}</h1>;
+}
+// No <Suspense> needed — loading.tsx handles it automatically`}
+      </CodeBlock>
+
+      <h2 style={s.h2}>Hierarchical loading.tsx</h2>
+      <p style={s.p}>
+        Like <span style={s.mono}>layout.tsx</span>, <span style={s.mono}>loading.tsx</span> files are hierarchical. Each directory level can have its own loading component. The nearest one to the page is used:
+      </p>
+      <div style={s.box}>
+        <pre style={{
+          fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
+          fontSize: 13,
+          color: '#a1a1aa',
+          lineHeight: 1.8,
+          margin: 0,
+        }}>
+{`resources/js/rsc/app/
+├── layout.tsx
+├── loading.tsx          ← fallback for all pages
+├── docs/
+│   ├── layout.tsx
+│   ├── loading.tsx      ← fallback for docs pages
+│   └── [slug]/
+│       └── page.tsx     ← uses docs/loading.tsx
+├── dashboard/
+│   ├── page.tsx         ← uses app/loading.tsx (no docs/loading.tsx)
+│   └── settings/
+│       ├── loading.tsx  ← fallback for settings pages
+│       └── page.tsx     ← uses settings/loading.tsx`}
+        </pre>
+      </div>
+      <p style={s.p}>
+        Multiple loading files in the hierarchy stack as nested Suspense boundaries. The outermost loading wraps first, then inner ones wrap closer to the page.
+      </p>
 
       <h2 style={s.h2}>What Gets Prerendered</h2>
       <div style={s.box}>

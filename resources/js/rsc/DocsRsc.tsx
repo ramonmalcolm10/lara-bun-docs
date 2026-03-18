@@ -37,6 +37,7 @@ export default function DocsRsc() {
         }}>
           <div><span style={{ color: '#9a9aa2' }}>resources/js/rsc/app/</span></div>
           <div style={{ paddingLeft: 16 }}>layout.tsx <span style={{ color: '#f59e0b' }}>→ root layout (wraps all pages)</span></div>
+          <div style={{ paddingLeft: 16 }}>loading.tsx <span style={{ color: '#f59e0b' }}>→ Suspense fallback for all pages</span></div>
           <div style={{ paddingLeft: 16 }}>page.tsx <span style={{ color: '#f59e0b' }}>→ GET /</span></div>
           <div style={{ paddingLeft: 16 }}><span style={{ color: '#9a9aa2' }}>about/</span></div>
           <div style={{ paddingLeft: 32 }}>page.tsx <span style={{ color: '#f59e0b' }}>→ GET /about</span></div>
@@ -54,6 +55,7 @@ export default function DocsRsc() {
       <ul style={{ listStyle: 'none' }}>
         <li style={s.li}>• <span style={s.mono}>page.tsx</span> — defines a route. Only files named <span style={s.mono}>page.*</span> create routes.</li>
         <li style={s.li}>• <span style={s.mono}>layout.tsx</span> — wraps all pages in the same directory and below. Receives <span style={s.mono}>children</span>.</li>
+        <li style={s.li}>• <span style={s.mono}>loading.tsx</span> — Suspense fallback. Auto-wraps pages in <span style={s.mono}>{`<Suspense>`}</span>. Hierarchical — nearest to the page wins.</li>
         <li style={s.li}>• <span style={s.mono}>route.php</span> — optional PHP config for middleware, auth, static paths, and view data.</li>
       </ul>
       <p style={s.p}>
