@@ -214,6 +214,45 @@ window.__rsc_navigate('/settings', { preserveScroll: true });
 window.__rsc_prefetch('/dashboard');`}
       </CodeBlock>
 
+      <h3 style={s.h3}>Link Loading State</h3>
+      <p style={s.p}>
+        Each Link adds a <span style={s.mono}>data-pending</span> attribute while navigating. Style it with CSS — no JavaScript needed:
+      </p>
+      <CodeBlock language="css">
+        {`/* Dim the link while navigating */
+a[data-pending] {
+  opacity: 0.5;
+  pointer-events: none;
+}`}
+      </CodeBlock>
+      <p style={s.p}>
+        For advanced cases (showing a spinner outside the link, changing unrelated UI), use the <span style={s.mono}>useLinkStatus</span> hook. It reads from the nearest parent Link's context:
+      </p>
+      <CodeBlock language="tsx">
+        {`"use client";
+
+import Link from 'lara-bun/Link';
+import { useLinkStatus } from 'lara-bun/useLinkStatus';
+
+function NavItem({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href}>
+      <NavContent>{children}</NavContent>
+    </Link>
+  );
+}
+
+function NavContent({ children }: { children: React.ReactNode }) {
+  const { pending } = useLinkStatus();
+  return (
+    <span style={{ opacity: pending ? 0.5 : 1 }}>
+      {children}
+      {pending && <span className="spinner" />}
+    </span>
+  );
+}`}
+      </CodeBlock>
+
       <h2 style={s.h2}>Streaming</h2>
       <p style={s.p}>
         On initial page loads, LaraBun streams HTML progressively. React renders the shell (including Suspense fallbacks) immediately. As async content resolves, React injects completion scripts that swap in the real content.
