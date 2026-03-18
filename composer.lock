@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5dbf645a66542966b6e6f0b278c9fc2",
+    "content-hash": "ea258a3a85403e3353da88ae79c3f10e",
     "packages": [
         {
             "name": "brick/math",
@@ -1143,7 +1143,7 @@
         },
         {
             "name": "larabun/lara-bun",
-            "version": "dev-feature/ppr",
+            "version": "dev-feature/file-based-router",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larabun/lara-bun.git",
@@ -1220,7 +1220,7 @@
                 "unix-socket"
             ],
             "support": {
-                "source": "https://github.com/larabun/lara-bun/tree/feature/ppr",
+                "source": "https://github.com/larabun/lara-bun/tree/feature/file-based-router",
                 "issues": "https://github.com/larabun/lara-bun/issues"
             },
             "time": "2026-03-18T02:04:17+00:00"
