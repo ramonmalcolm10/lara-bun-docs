@@ -3,7 +3,7 @@ set -e
 
 php artisan optimize
 
-rm -f /tmp/larabun-docs-bridge.sock
+rm -f /tmp/larabun-docs-bridge.sock /tmp/larabun-docs-bridge.sock.cb
 
 php artisan bun:serve &
 BUN_PID=$!
