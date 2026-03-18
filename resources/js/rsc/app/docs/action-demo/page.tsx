@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'lara-bun/Link';
 import CodeBlock from '../../../CodeBlock';
-import TodoDemo from './TodoDemo';
+import LiveTodoDemo from './LiveTodoDemo';
 
 const s = {
   h1: { fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 12 } as const,
@@ -12,13 +12,6 @@ const s = {
   accent: { color: '#f59e0b' } as const,
   box: { background: '#18181b', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)', padding: 24, marginBottom: 20 } as const,
 };
-
-async function LiveTodoDemo() {
-  const sessionId = await php<string>("Todos.generate");
-  const todos = await php<{ id: string; title: string; done: boolean }[]>("Todos.list", sessionId);
-
-  return <TodoDemo sessionId={sessionId} initial={todos} />;
-}
 
 function TodoSkeleton() {
   return (
