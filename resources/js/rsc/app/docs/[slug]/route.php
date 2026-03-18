@@ -18,6 +18,7 @@ return PageRoute::make()
         'ppr',
         'static-generation',
         'react-compiler',
+        'route-interception',
         'typed-routes',
         'deployment',
     ])
@@ -37,6 +38,7 @@ return PageRoute::make()
             'ppr' => 'Partial Prerendering — LaraBun Docs',
             'static-generation' => 'Static Generation — LaraBun Docs',
             'react-compiler' => 'React Compiler — LaraBun Docs',
+            'route-interception' => 'Route Interception — LaraBun Docs',
             'typed-routes' => 'Typed Routes — LaraBun Docs',
             'deployment' => 'Deployment — LaraBun Docs',
             default => 'LaraBun Docs',

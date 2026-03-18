@@ -12,6 +12,7 @@ import DocsMetadata from '../../../DocsMetadata';
 import DocsPpr from '../../../DocsPpr';
 import DocsStaticGeneration from '../../../DocsStaticGeneration';
 import DocsReactCompiler from '../../../DocsReactCompiler';
+import DocsRouteInterception from '../../../DocsRouteInterception';
 import DocsTypedRoutes from '../../../DocsTypedRoutes';
 import DocsDeployment from '../../../DocsDeployment';
 
@@ -30,6 +31,7 @@ const pages: Record<string, React.ComponentType> = {
   'ppr': DocsPpr,
   'static-generation': DocsStaticGeneration,
   'react-compiler': DocsReactCompiler,
+  'route-interception': DocsRouteInterception,
   'typed-routes': DocsTypedRoutes,
   'deployment': DocsDeployment,
 };

@@ -41,10 +41,12 @@ const sections: NavSection[] = [
       { label: 'Partial Prerendering', slug: 'ppr' },
       { label: 'Static Generation', slug: 'static-generation' },
       { label: 'React Compiler', slug: 'react-compiler' },
+      { label: 'Route Interception', slug: 'route-interception' },
       { label: 'Typed Routes', slug: 'typed-routes' },
       { label: 'Deployment', slug: 'deployment' },
       { label: 'Suspense Demo', slug: 'suspense-demo' },
       { label: 'Action Demo', slug: 'action-demo' },
+      { label: 'Intercept Demo', slug: 'intercept-demo' },
     ],
   },
 ];
