@@ -53,17 +53,18 @@ export default function DocsInstallation() {
 bun add -d @types/react @types/react-dom`}
       </CodeBlock>
       <p style={s.p}>
-        Then add the build script to your <span style={s.mono}>package.json</span>:
+        Then add the build and dev scripts to your <span style={s.mono}>package.json</span>:
       </p>
       <CodeBlock language="json" title="package.json">
         {`{
   "scripts": {
-    "build": "bun vendor/larabun/lara-bun/resources/build-rsc.ts"
+    "build": "php artisan rsc:build",
+    "dev": "php artisan bun:dev"
   }
 }`}
       </CodeBlock>
       <p style={s.p}>
-        This is used for production builds. During development, <span style={s.mono}>php artisan bun:dev</span> handles building and watching automatically.
+        <span style={s.mono}>bun run build</span> builds RSC bundles and pre-renders static pages. <span style={s.mono}>bun run dev</span> starts the Bun worker with file watching and auto-rebuild.
       </p>
 
       <h2 style={s.h2}>4. Environment Configuration</h2>
