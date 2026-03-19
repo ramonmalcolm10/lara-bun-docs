@@ -63,6 +63,40 @@ export default async function PostPage({ id }: { id: string }) {
 }`}
       </CodeBlock>
 
+      <h2 style={s.h2}>Title Templates</h2>
+      <p style={s.p}>
+        Instead of repeating your app name in every page title, define a <span style={s.mono}>title.template</span> in your layout's metadata. The <span style={s.mono}>%s</span> placeholder is replaced with the page's title:
+      </p>
+      <CodeBlock language="tsx" title="resources/js/rsc/app/layout.tsx">
+        {`export const metadata = {
+  title: {
+    template: '%s | Acme Dashboard',
+    default: 'Acme Dashboard',
+  },
+  description: 'The official Acme dashboard.',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
+}`}
+      </CodeBlock>
+      <p style={s.p}>
+        Pages set their own title as a plain string — the template wraps it automatically:
+      </p>
+      <CodeBlock language="tsx" title="resources/js/rsc/app/settings/page.tsx">
+        {`export const metadata = {
+  title: 'Settings',
+};
+
+// Renders: <title>Settings | Acme Dashboard</title>
+export default function SettingsPage() {
+  return <h1>Settings</h1>;
+}`}
+      </CodeBlock>
+      <p style={s.p}>
+        If a page has no metadata export, the <span style={s.mono}>default</span> title is used. The template applies from the nearest layout that defines one — nested layouts can override the parent's template.
+      </p>
+
       <h2 style={s.h2}>Supported Keys</h2>
       <p style={s.p}>
         The <span style={s.mono}>Metadata</span> type supports all common meta tags:
