@@ -55,7 +55,7 @@ export default function LandingPage() {
           fontFamily: f.body,
           fontSize: 'clamp(17px, 2.2vw, 21px)',
           fontWeight: 300,
-          color: '#71717a',
+          color: '#a1a1aa',
           lineHeight: 1.6,
           maxWidth: 520,
           margin: '0 auto 56px',
@@ -119,7 +119,7 @@ class Posts
           <div style={{
             fontFamily: f.mono,
             fontSize: 13,
-            color: '#71717a',
+            color: '#a1a1aa',
             marginBottom: 24,
           }}>
             <span style={{ userSelect: 'none' }}>$ </span>
