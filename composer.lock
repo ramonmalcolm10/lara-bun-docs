@@ -1143,16 +1143,16 @@
         },
         {
             "name": "larabun/lara-bun",
-            "version": "v0.4.0",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larabun/lara-bun.git",
-                "reference": "3e2f0e09a5340a55ea366c034388d0b774e3c568"
+                "reference": "8acceb867c4cd882eb732a628c6e86e65fafadd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/3e2f0e09a5340a55ea366c034388d0b774e3c568",
-                "reference": "3e2f0e09a5340a55ea366c034388d0b774e3c568",
+                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/8acceb867c4cd882eb732a628c6e86e65fafadd7",
+                "reference": "8acceb867c4cd882eb732a628c6e86e65fafadd7",
                 "shasum": ""
             },
             "require": {
@@ -1220,10 +1220,10 @@
                 "unix-socket"
             ],
             "support": {
-                "source": "https://github.com/larabun/lara-bun/tree/v0.4.0",
+                "source": "https://github.com/larabun/lara-bun/tree/v0.4.1",
                 "issues": "https://github.com/larabun/lara-bun/issues"
             },
-            "time": "2026-03-20T04:16:15+00:00"
+            "time": "2026-03-20T13:13:32+00:00"
         },
         {
             "name": "laravel/framework",
