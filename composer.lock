@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4e3c1338970aac297ad82d4a265ad4a",
+    "content-hash": "ae7438a27626a120b454c87b6938e12d",
     "packages": [
         {
             "name": "brick/math",
@@ -1143,32 +1143,28 @@
         },
         {
             "name": "larabun/lara-bun",
-            "version": "v0.4.1",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larabun/lara-bun.git",
-                "reference": "8acceb867c4cd882eb732a628c6e86e65fafadd7"
+                "reference": "05f40b501c6d7b6eb3a2803057260851f81b520c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/8acceb867c4cd882eb732a628c6e86e65fafadd7",
-                "reference": "8acceb867c4cd882eb732a628c6e86e65fafadd7",
+                "url": "https://api.github.com/repos/larabun/lara-bun/zipball/05f40b501c6d7b6eb3a2803057260851f81b520c",
+                "reference": "05f40b501c6d7b6eb3a2803057260851f81b520c",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "^11.0|^12.0|^13.0",
-                "illuminate/support": "^11.0|^12.0|^13.0",
-                "php": "^8.2"
+                "illuminate/console": "^13.0",
+                "illuminate/support": "^13.0",
+                "php": "^8.3"
             },
             "require-dev": {
-                "inertiajs/inertia-laravel": "^2.0",
                 "mockery/mockery": "^1.6",
-                "orchestra/testbench": "^10.0",
-                "pestphp/pest": "^3.0",
-                "pestphp/pest-plugin-laravel": "^3.0"
-            },
-            "suggest": {
-                "inertiajs/inertia-laravel": "Required for Bun SSR gateway"
+                "orchestra/testbench": "^11.0",
+                "pestphp/pest": "^4.0",
+                "pestphp/pest-plugin-laravel": "^4.0"
             },
             "type": "library",
             "extra": {
@@ -1212,18 +1208,17 @@
             "homepage": "https://github.com/larabun/lara-bun",
             "keywords": [
                 "bun",
-                "inertia",
                 "javascript",
                 "laravel",
-                "ssr",
+                "rsc",
                 "typescript",
                 "unix-socket"
             ],
             "support": {
-                "source": "https://github.com/larabun/lara-bun/tree/v0.4.1",
+                "source": "https://github.com/larabun/lara-bun/tree/v0.5.0",
                 "issues": "https://github.com/larabun/lara-bun/issues"
             },
-            "time": "2026-03-20T13:13:32+00:00"
+            "time": "2026-03-22T01:05:18+00:00"
         },
         {
             "name": "laravel/framework",
