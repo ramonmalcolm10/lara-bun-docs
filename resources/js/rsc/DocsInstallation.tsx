@@ -75,11 +75,18 @@ bun add -d @types/bun @types/react @types/react-dom`}
         {`BUN_RSC_ENABLED=true
 BUN_BRIDGE_SOCKET=/tmp/my-app-bridge.sock`}
       </CodeBlock>
+      <h2 style={s.h2}>5. AI Skills (Laravel Boost)</h2>
       <p style={s.p}>
-        For Inertia SSR mode (without RSC), use <span style={s.mono}>BUN_SSR_ENABLED=true</span> instead.
+        If you use <span style={s.mono}>Laravel Boost</span>, discover the RSC development skill so your AI assistant understands LaraBun's patterns:
+      </p>
+      <CodeBlock language="bash">
+        {`php artisan boost:update --discover`}
+      </CodeBlock>
+      <p style={s.p}>
+        Select <span style={s.mono}>larabun/lara-bun</span> when prompted. This installs the <span style={s.mono}>rsc-development</span> skill with file-based routing conventions, server actions, Form/useForm patterns, and the build pipeline.
       </p>
 
-      <h2 style={s.h2}>5. Create Your First Page</h2>
+      <h2 style={s.h2}>6. Create Your First Page</h2>
       <p style={s.p}>
         LaraBun uses file-based routing. Create an <span style={s.mono}>app/</span> directory inside <span style={s.mono}>resources/js/rsc/</span> with a root layout and a page:
       </p>
@@ -102,7 +109,7 @@ BUN_BRIDGE_SOCKET=/tmp/my-app-bridge.sock`}
         That's it — <span style={s.mono}>app/page.tsx</span> maps to <span style={s.mono}>GET /</span> and is automatically wrapped by <span style={s.mono}>app/layout.tsx</span>. See <Link href="/docs/rsc" style={s.accent}>File-Based Routing</Link> for the full convention.
       </p>
 
-      <h2 style={s.h2}>6. Start Development</h2>
+      <h2 style={s.h2}>7. Start Development</h2>
       <CodeBlock language="bash">
         {`php artisan bun:dev`}
       </CodeBlock>
