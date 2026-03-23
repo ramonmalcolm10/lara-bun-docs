@@ -61,7 +61,7 @@ export default function TodoForm() {
           <div><span style={s.accent}>onSuccess</span> — called with the action result on success</div>
           <div><span style={s.accent}>onError</span> — called with validation errors on 422</div>
           <div><span style={s.accent}>onSubmit</span> — called before submit, return false to cancel</div>
-          <div><span style={s.accent}>prefetch</span> — "hover" | "mount" | "none" (GET forms only)</div>
+          <div><span style={s.accent}>prefetch</span> — "hover" (default) | "mount" | "none" (GET forms only)</div>
           <div><span style={s.accent}>replace</span> — replace history state (GET forms)</div>
           <div><span style={s.accent}>preserveScroll</span> — keep scroll position (GET forms)</div>
         </div>
