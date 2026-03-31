@@ -283,15 +283,34 @@ export default function Counter() {
         </tbody>
       </table>
       <p style={s.p}>
-        By default, navigation scrolls to the top of the page. Use <span style={s.mono}>preserveScroll</span> to opt out. You can also navigate programmatically:
+        By default, navigation scrolls to the top of the page. Use <span style={s.mono}>preserveScroll</span> to opt out.
       </p>
-      <CodeBlock language="ts">
-        {`// Programmatic navigation
-window.__rsc_navigate('/about');
-window.__rsc_navigate('/settings', { preserveScroll: true });
 
-// Prefetch a route
-window.__rsc_prefetch('/dashboard');`}
+      <h3 style={s.h3}>Programmatic Navigation</h3>
+      <p style={s.p}>
+        Use <span style={s.mono}>visit()</span> and <span style={s.mono}>prefetch()</span> from <span style={s.mono}>lara-bun/router</span> for programmatic navigation in client components:
+      </p>
+      <CodeBlock language="tsx">
+        {`"use client";
+import { visit, prefetch } from "lara-bun/router";
+
+// Navigate to a page
+await visit('/about');
+
+// Replace history entry (no back button)
+await visit('/dashboard', { replace: true });
+
+// Prefetch a route for instant navigation later
+prefetch('/settings');`}
+      </CodeBlock>
+      <p style={s.p}>
+        You can also use the default export:
+      </p>
+      <CodeBlock language="tsx">
+        {`import router from "lara-bun/router";
+
+router.visit('/about');
+router.prefetch('/settings');`}
       </CodeBlock>
 
       <h3 style={s.h3}>Link Loading State</h3>
