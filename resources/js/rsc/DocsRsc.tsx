@@ -96,8 +96,84 @@ return PageRoute::make()
     ->viewData(fn (string $slug) => ['title' => "Docs: $slug"]);`}
       </CodeBlock>
       <p style={s.p}>
-        Available methods: <span style={s.mono}>middleware()</span>, <span style={s.mono}>can()</span>, <span style={s.mono}>staticPaths()</span>, <span style={s.mono}>viewData()</span>, <span style={s.mono}>name()</span>, <span style={s.mono}>where()</span>, <span style={s.mono}>domain()</span>, <span style={s.mono}>forceDynamic()</span>, <span style={s.mono}>forceStatic()</span>.
+        Available methods: <span style={s.mono}>middleware()</span>, <span style={s.mono}>can()</span>, <span style={s.mono}>staticPaths()</span>, <span style={s.mono}>viewData()</span>, <span style={s.mono}>props()</span>, <span style={s.mono}>name()</span>, <span style={s.mono}>where()</span>, <span style={s.mono}>domain()</span>, <span style={s.mono}>forceDynamic()</span>, <span style={s.mono}>forceStatic()</span>.
       </p>
+
+      <h2 style={s.h2}>Passing Data to Pages</h2>
+      <p style={s.p}>
+        There are two ways to pass server-side data to your page components:
+      </p>
+
+      <h3 style={{ fontFamily: "system-ui, -apple-system, sans-serif", fontSize: 17, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>1. Using php() in Server Components</h3>
+      <p style={s.p}>
+        Server components can call <span style={s.mono}>php()</span> directly to fetch data during rendering. This is the RSC-native approach — data fetching lives in the component:
+      </p>
+      <CodeBlock language="tsx" title="app/dashboard/page.tsx">
+        {`export default async function DashboardPage() {
+  const stats = await php<{ revenue: number; orders: number }>('Dashboard.stats');
+
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <p>Revenue: \${stats.revenue}</p>
+      <p>Orders: {stats.orders}</p>
+    </div>
+  );
+}`}
+      </CodeBlock>
+
+      <h3 style={{ fontFamily: "system-ui, -apple-system, sans-serif", fontSize: 17, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>2. Using props() in route.php</h3>
+      <p style={s.p}>
+        Use <span style={s.mono}>props()</span> to pass data from PHP to your page component via <span style={s.mono}>route.php</span>. This is useful when you need Laravel-specific data like session state, auth info, or redirects:
+      </p>
+      <CodeBlock language="php" title="app/login/route.php">
+        {`<?php
+use LaraBun\\Rsc\\PageRoute;
+
+return PageRoute::make()
+    ->middleware(['guest'])
+    ->name('login')
+    ->props(fn () => [
+        'intended_url' => redirect()->intended(route('dashboard'))->getTargetUrl(),
+        'last_login_method' => LastLogin::get(),
+    ]);`}
+      </CodeBlock>
+      <CodeBlock language="tsx" title="app/login/page.tsx">
+        {`export default function LoginPage({ intended_url, last_login_method }: {
+  intended_url: string;
+  last_login_method: string;
+}) {
+  return <LoginForm intendedUrl={intended_url} lastLoginMethod={last_login_method} />;
+}`}
+      </CodeBlock>
+      <p style={s.p}>
+        <span style={s.mono}>props()</span> accepts a static array or a closure. Static arrays are safe for prerendering. Closures make the page dynamic — a <span style={s.mono}>loading.tsx</span> is required for PPR.
+      </p>
+
+      <h3 style={{ fontFamily: "system-ui, -apple-system, sans-serif", fontSize: 17, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>props() vs viewData()</h3>
+      <div style={s.box}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th style={{ textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: 13, fontWeight: 600, color: '#fafafa', fontFamily: "ui-monospace, 'SFMono-Regular', monospace" }}>Method</th>
+              <th style={{ textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: 13, fontWeight: 600, color: '#fafafa' }}>Goes to</th>
+              <th style={{ textAlign: 'left', padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: 13, fontWeight: 600, color: '#fafafa' }}>Use for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13, color: '#f59e0b', fontFamily: "ui-monospace, 'SFMono-Regular', monospace" }}>props()</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 14, color: '#a1a1aa' }}>React component</td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 14, color: '#a1a1aa' }}>Data the component needs to render</td>
+            </tr>
+            <tr>
+              <td style={{ padding: '8px 12px', fontSize: 13, color: '#f59e0b', fontFamily: "ui-monospace, 'SFMono-Regular', monospace" }}>viewData()</td>
+              <td style={{ padding: '8px 12px', fontSize: 14, color: '#a1a1aa' }}>Blade view only</td>
+              <td style={{ padding: '8px 12px', fontSize: 14, color: '#a1a1aa' }}>Page title, meta tags, og:image</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2 style={s.h2}>Auto-Static Detection</h2>
       <p style={s.p}>
